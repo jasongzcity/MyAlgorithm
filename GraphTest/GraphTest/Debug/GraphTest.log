@@ -1,0 +1,23 @@
+﻿Build started 2016/1/4 16:31:38.
+     1>Project "E:\VS2010\Workspace\GraphTest\GraphTest\GraphTest.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\GraphTest.unsuccessfulbuild".
+       ClCompile:
+         E:\VS2010\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt GraphTesttt.cpp
+         GraphTesttt.cpp
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(97): error C2974: 'SVector' : invalid template argument for 'T', type expected
+                 e:\vs2010\vc\include\adt_vector.h(13) : see declaration of 'SVector'
+                 e:\vs2010\workspace\graphtest\graphtest\sgraph.h(250) : see reference to class template instantiation 'GraphMatrix<Tv,Te>' being compiled
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(97): error C2059: syntax error : '>'
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(97): error C2238: unexpected token(s) preceding ';'
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(98): error C2974: 'SVector' : invalid template argument for 'T', type expected
+                 e:\vs2010\vc\include\adt_vector.h(13) : see declaration of 'SVector'
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(98): error C2955: 'SVector' : use of class template requires template argument list
+                 e:\vs2010\vc\include\adt_vector.h(13) : see declaration of 'SVector'
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(98): error C2059: syntax error : '>'
+     1>e:\vs2010\workspace\graphtest\graphtest\sgraph.h(98): error C2238: unexpected token(s) preceding ';'
+     1>Done Building Project "E:\VS2010\Workspace\GraphTest\GraphTest\GraphTest.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.31
