@@ -1,74 +1,33 @@
-/* Created at 2015-12-9 22:33:21 by LWZ */
-#include "ADT_Vector.h"
+/*
+ * VectorTest.cpp
+ *
+ *  Created on: 2016å¹´9æœˆ20æ—¥
+ *      Author: jason
+ */
+
+#include "includes/MyVector.h"
 #include <iostream>
 
-using namespace std;
-template <class T> void ShowAll(T&);
-/*  
-	½Ó¿Ú²âÊÔ:
-	±éÀúÕıÈ·,NumÕıÈ· ÅĞ¶ÏÅÅĞòÕıÈ·
-	Find zÕıÈ·  ÎŞĞòÈ¥ÖØÕıÈ·
-	UniquifyÕıÈ· BinSearchÕıÈ· 
+int main() {
+    using namespace std;
+    SVector<int> vector;
+    vector.Insert(3);
+    vector.Insert(4);
+    vector.Insert(5);
+    vector.Insert(6);
+    vector.Insert(7);
+    vector.Insert(1);
+    vector.Insert(2);
+    vector.Insert(1);
+    vector.Insert(0);
 
-*/
-
-template <typename T>			//²Ù×÷Æ÷ÔÚSTLÖĞ¹ã·ºÓÃ×÷µü´úÆ÷µÈ¹¦ÄÜ
-class Plus1
-{
-public:
-	virtual void operator()(T &e)
-	{
-		e++;
-	}
-};
-
-int main()
-{
-	Plus1<int> dbPlus;
-	SVector<int> V(5,3);
-	
-	V.Insert(32111,0);
-	V.Insert(9,0);
-	V.Insert(9,0);
-	V.Insert(88,0);
-	V.Insert(213,0);
-	V.Insert(9,6);
-	V.Insert(123,0);
-	V.Insert(244,0);
-	V.Insert(666,7);
-
-	V.Traverse(ShowAll);
-	
-
-	V.MergeSort(0,V.Num());
-	cout<<endl;
-	V.Uniquify();
-
-	//
-	V.Traverse(ShowAll);
-	cout<<endl;
-	
-	V.Traverse(dbPlus);
-
-	V.Traverse(ShowAll);
-	cout<<endl;
-	
-
-
-
-	cin.get();
-	return 0;
+    cout<<vector.Num()<<endl;
+    cout<<endl;
+    vector.MergeSort(0,vector.Num());
+    cout<<vector.BinSearch(1)<<endl;
+    int i=0;
+    while(i<vector.Num()) {
+        cout<<vector[i]<<endl;
+        i++;
+    }
 }
-
-template <typename T>
-void ShowAll(T& e)
-{
-	cout<<e<<endl;
-}
-
-
-
-
-
-
-

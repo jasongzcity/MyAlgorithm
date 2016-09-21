@@ -6,6 +6,9 @@
 
 typedef int Rank;
 
+/*
+ * A simple vector.
+ */
 template <typename T> 
 class SVector
 {
@@ -23,7 +26,7 @@ protected:
         {
             DataBuff[Size] = A[lo];
             Size++;
-            lo++;						//Size = hi-lo
+            lo++;
         }
     }
 
@@ -48,109 +51,100 @@ protected:
         delete [] oldbuff;
     }
 
-	void Shrink()						//����
-	{
-		if(Capacity < DEFAULT_CAPACITY<<1)		//������С��Ĭ�������������������ݣ����ǵ�����Ҳ��ʱ��ɱ���
-		{
-			return;
-		}
-		if(Size > Capacity>>2)					//��ģ�����������ķ�֮һ����������
-		{
-			return;
-		}
+    void Shrink()
+    {
+        if(Capacity < DEFAULT_CAPACITY<<1)
+        {
+            return;
+        }
+        if(Size > Capacity>>2)
+        {
+            return;
+        }
 
-		T* oldbuff = DataBuff;
-		Capacity >>= 1;							//��������
-		DataBuff = new T[Capacity];
-		for(int i=0;i<Size;i++)
-		{
-			DataBuff[i] = oldbuff[i];
-		}
-		delete [] oldbuff;
-	}
+        T* oldbuff = DataBuff;
+        Capacity >>= 1;
+        DataBuff = new T[Capacity];
+        for(int i=0;i<Size;i++)
+        {
+            DataBuff[i] = oldbuff[i];
+        }
+        delete [] oldbuff;
+    }
 
 public:
-	//���캯��
-	SVector(int c = DEFAULT_CAPACITY,int s = 0,T e = 0)		//Ĭ�Ϲ��캯������ģ��s,������c
-	{
-		Capacity = c;
-		DataBuff = new T[c];		//��չ��ʼ�ռ�
-		for(Size=0;Size<s;Size++)	
-		{
-			DataBuff[Size] = e;		//��������Ĭ��ֵ	����:����Ĭ��������T�����������[]
-		}
-		//cout<<"vector"<<endl;
+    SVector(int c = DEFAULT_CAPACITY,int s = 0,T e = 0)
+    {
+        Capacity = c;
+        DataBuff = new T[c];
+        for(Size=0;Size<s;Size++)
+        {
+            DataBuff[Size] = e;
+        }
+    }
+
+    SVector(T const* A,Rank n)
+    {
+        CopyFrom(A,0,n);
+    }
+
+    SVector(T const* A,Rank lo,Rank hi)
+    {
+        CopyFrom(A,lo,hi);
+    }
+
+    SVector(SVector<T> const& V)
+    {
+        CopyFrom(V.DataBuff,0,V.Size);
+    }
+
+    SVector(SVector<T> const& V,Rank lo,Rank hi)
+    {
+        CopyFrom(V.DataBuff,lo,hi);
+    }
+    SVector<T>& operator=(SVector<T> const& V)
+    {
+        CopyFrom(V.DataBuff,0,V.Size);
+        return (*this);
+    }
+
+    virtual ~SVector()
+    {
+        delete [] DataBuff;
 	}
 
-	SVector(T const* A,Rank n)		//��A������n������(������ʽ)
-	{
-		CopyFrom(A,0,n);
-	}
+    int capacity() const
+    {
+        return Capacity;
+    }
 
-	SVector(T const* A,Rank lo,Rank hi)
-	{
-		CopyFrom(A,lo,hi);
-	}
+    Rank Num() const
+    {
+        return Size;
+    }
 
-	SVector(SVector<T> const& V)		//���帴��
-	{
-		CopyFrom(V.DataBuff,0,V.Size);
-	}
+    bool IsEmpty() const
+    {
+        return (Size == 0);
+    }
 
-	SVector(SVector<T> const& V,Rank lo,Rank hi)	//���临��
-	{
-		CopyFrom(V.DataBuff,lo,hi);
-	}
-	SVector<T>& operator=(SVector<T> const& V)
-	{
-		CopyFrom(V.DataBuff,0,V.Size);
-		return (*this);
-	}
-	//SVector<T>& operator=(T const* A,Rank n)
-	//{
-	//	CopyFrom(A,0,n);
-	//	return (*this);
-	//}
-
-
-	//��������
-	virtual ~SVector()
-	{
-		delete [] DataBuff;
-		//cout<<"Clean Vector!"<<endl;
-	}
-	//ֻ���ӿ�
-	int capacity() const
-	{
-		return Capacity;
-	}
-
-	Rank Num() const
-	{
-		return Size;
-	}
-
-	bool IsEmpty() const		//�շ���1���ǿշ���0
-	{
-		return (Size == 0);
-	}
-
-	bool Disordered() const		//δ���򷵻�1,�ź��򷵻�0
-	{							//O(n)				
-		Rank i = 0;
+    //O(n)
+    bool Disordered() const
+    {
+        Rank i = 0;
 		while(i<Size-1)
 		{
 			if(DataBuff[i] > DataBuff[i+1])
 			{
-				return true;		//����i����i+1�������˵��δ����
+				return true;
 			}
 			i++;
 		}
-		return false;				//ѭ�����˵��������
-	}
+		return false;
+    }
 
-	Rank Find(T const& e,Rank lo,Rank hi)	//����[lo,hi)�ڲ���e���������򷵻��ȣ���δ�����򷵻�hi
-	{
+    Rank Find(T const& e,Rank lo,Rank hi)
+    {
 		while(lo<hi)
 		{
 			if(DataBuff[lo] == e)
@@ -162,14 +156,15 @@ public:
 		return lo;
 	}
 
-	Rank Find(T const& e)			//ȫ�������
+	Rank Find(T const& e)
 	{
 		return Find(e,0,Size);
 		
 	}
 
-	Rank BinSearch(T const& e,Rank lo,Rank hi) const	//���ֲ���,��������[lo,hi),����С�ڵ���e�����һ����
-	{													//O(logn)
+	//O(logn)
+	Rank BinSearch(T const& e,Rank lo,Rank hi) const
+	{
 		while(lo<hi)
         {
 		    Rank mi = (lo+hi)>>1;
@@ -189,9 +184,6 @@ public:
 	{													//O(logn)
 		return BinSearch(e,0,Size);
 	}
-
-
-	//��д�ӿ�
 
 	T& operator[](Rank r) const
 	{
