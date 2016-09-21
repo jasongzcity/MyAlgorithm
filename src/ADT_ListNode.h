@@ -465,16 +465,3 @@ public:
 };//Listƒ£∞Â¿‡
 
 #endif //ADT_LISTNODE_H
-
-
-
-
-
-
-
-
-
-
-
-
-		
