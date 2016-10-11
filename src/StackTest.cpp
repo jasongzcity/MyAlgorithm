@@ -53,12 +53,6 @@ public:
 void PrintQueen(SStack<Queen> const& );
 void PlaceQueen(int N);
 
-/*接口检查:
-
-全部通过!
-
-*/
-
 template<typename T> void ShowAll(T const& e)
 {
 	cout<<e<<endl;

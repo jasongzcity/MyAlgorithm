@@ -82,7 +82,7 @@ void QuickSort(T* buff,Rank lo,Rank hi,partitionflag flag = EQUAL)
 	{
 		return;
 	}
-	if(flag = EQUAL)
+	if(flag == EQUAL)
 	{
 		mi = Partition1(buff,lo,hi-1);			//在[lo,hi-1]区间取pivot
 	}
