@@ -8,6 +8,7 @@
 #define MYVECTOR_H
 
 #include "./MyAlgorithm.h"
+#include "./QuickSort.h"
 
 #define VEC_DEFAULT_CAPACITY 5
 
@@ -421,6 +422,17 @@ public:
         }
     }
 
+    /**
+    * Use QuickSort to sort this vector in the range of [lo,hi)
+    * and use partitionflag to choose partition methods.
+    * check QuickSort.h to see the difference and the choices for 
+    * partitionflag.
+    **/
+    void QuickSort(Rank lo,Rank hi,int partitionflag = 0)
+    {
+        MyAlgorithm::QuickSort(DataBuff,lo,hi-1,partitionflag);
+    }
+
     //=======iterate methods=======//
     /**
     * From this point, C++ is dealing with iteration more elegant than Java.
@@ -443,4 +455,4 @@ public:
 
 ALGORITHM_END
 
-#endif //ADT_VECTOR_H
+#endif //MYVECTOR_H

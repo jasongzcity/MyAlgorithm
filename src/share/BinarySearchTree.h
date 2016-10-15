@@ -95,10 +95,8 @@ protected:
     **/
     BinNodePosi(T)& SearchIn(BinNodePosi(T)& x,T const& e,BinNodePosi(T)& hot)
     {                                                                           //hot to record the parent of the target
-        if(!x || (x->Data == e))        //Base. Return NULL if not found.
-        {                                           //Also notice: it returns the reference of suitable insert position.
-            return x;
-        }
+        if(!x || (x->Data == e))        //Base. Return NULL if not found.                                
+            return x;                           //Also notice: it returns the reference of suitable insert position
         hot = x;    
         BinNodePosi(T)& v = (x->Data > e)? x->LChild:x->RChild;//go left or right   
         return SearchIn(v,e,hot);
@@ -106,7 +104,7 @@ protected:
 
     /**
     * remove element at x, use hot to record the parent of the removal node, 
-    * x records the successor  of the removal node.
+    * x also the reference of the parent pointer
     **/
     BinNodePosi(T) RemoveAt(BinNodePosi(T)& x,BinNodePosi(T)& hot)
     {
@@ -148,7 +146,7 @@ protected:
                 hot->RChild = succ;//so its safe to skip
             else               //then w must be the left child of  hot
                 hot->LChild = succ;
-            x = succ;
+            //x = succ;
         }
         if(succ)
             succ->Parent = hot;
@@ -174,7 +172,6 @@ public:
     * Search for element e in the BST
     * Return the pointer's reference of target element,
     * or NULL if target element not found.
-    * TODO: XXXXXX
     **/
     virtual bool Remove(T const& e)
     {
@@ -243,7 +240,12 @@ public:
 
     bool IsEmpty()
     {
-        return _root==NULL;
+        return _size==0;
+    }
+
+    BinNodePosi(T) Root()
+    {
+        return _root;
     }
 };
 

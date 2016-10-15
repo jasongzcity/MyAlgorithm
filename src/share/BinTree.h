@@ -37,7 +37,7 @@ typedef enum {RB_RED,RB_BLACK} RBColor;    //for red black tree
 #define FromParentTo(x) (IsLChild(x)? (x).Parent->LChild:(x).Parent->RChild)//the pointer to x itself own by x's parent
 /////////////////////////////////FAST ROUTE END////////////////////////////////////////
 
-//the node of this binary tree
+//the node of binary tree
 template <typename T>
 class BinNode
 {
@@ -71,6 +71,22 @@ public:
     {
         RChild = new BinNode(e,this);
         return RChild;
+    }
+
+    BinNodePosi(T) AttachAsLChild(BinNodePosi(T) lc)
+    {
+        LChild = lc;
+        if(lc)
+            lc->Parent = this;
+        return this;
+    }
+
+    BinNodePosi(T) AttachAsRChild(BinNodePosi(T) rc)
+    {
+        RChild = rc;
+        if(rc)
+            rc->Parent = this;
+        return this;
     }
 
     //Return the size of the subtree of this node.

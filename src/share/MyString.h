@@ -18,6 +18,8 @@ ALGORITHM_BEGIN
 * String encapsulated char array. Maybe the most frequetly used data structure.
 * Notice: the "position" is started from 0, that means the first letter in this 
 * class is described as "in position 0"
+*
+* For matching algorithm, not perfectly encapsulated.
 **/
 class MyString
 {
@@ -129,6 +131,11 @@ public:
         return StrCompare(str.buff);
     }
 
+    bool operator==(const MyString& str)
+    {
+        return StrCompare(str);
+    }
+
     /**
     * Compare with char array.
     * Return true if equal.
@@ -222,6 +229,8 @@ public:
     //put the char buffer to standard output. 
     void DispString()
     {
+        if(!buff)
+            return;
         std::cout<<buff<<std::endl;
     }
 
