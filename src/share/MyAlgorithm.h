@@ -12,6 +12,7 @@
 #define ALGORITHM_END };
 
 #include <iostream>
+#include <cstdlib>
 
 ALGORITHM_BEGIN
 
@@ -77,6 +78,13 @@ template<typename E> void swap(E& a, E& b)
     temp = a;
     a = b;
     b = temp;
+}
+
+inline void PrepareRandom()
+{
+    time_t t;
+    time(&t);
+    srand(t);
 }
 
 ALGORITHM_END

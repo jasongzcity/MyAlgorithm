@@ -9,6 +9,7 @@
 
 #include "./MyAlgorithm.h"
 #include "./QuickSort.h"
+#include "./DualPivotQuicksort.h"
 
 #define VEC_DEFAULT_CAPACITY 5
 
@@ -236,6 +237,23 @@ public:
         return DataBuff[r];
     }
 
+    bool Equals(const MyVector& vec)
+    {
+        if(Size!=vec.size())
+            return false;
+        for(int i=0;i<Size;++i)
+        {
+            if(DataBuff[i]!=vec[i])
+                return false;
+        }
+        return true;
+    }
+
+    bool operator==(const MyVector& vec)
+    {
+        return Equals(vec);
+    }
+
     //==find & search ends==//
 
     //==modify methods(Insert remove deduplicate)==//
@@ -423,14 +441,26 @@ public:
     }
 
     /**
-    * Use QuickSort to sort this vector in the range of [lo,hi)
+    * Use QuickSort to sort this vector in the range of [lo,hi]
     * and use partitionflag to choose partition methods.
     * check QuickSort.h to see the difference and the choices for 
     * partitionflag.
     **/
     void QuickSort(Rank lo,Rank hi,int partitionflag = 0)
     {
-        MyAlgorithm::QuickSort(DataBuff,lo,hi-1,partitionflag);
+        MyAlgorithm::QuickSort(DataBuff,lo,hi,partitionflag);
+    }
+
+    /**
+    * Interface for Dual Pivot Quicksort.
+    * Sort range [lo, hi]  .
+    * Use boolean leftmost to illustrate if the subarray is the leftmost
+    * or not. If not use correctly this may cause array out of bound.
+    * See DualPivotQuicksort.h for more details.
+    **/
+    void DPQuicksort(Rank lo, Rank hi, bool leftmost)
+    {
+        MyAlgorithm::DualPivotQuicksort(DataBuff, lo, hi, leftmost);
     }
 
     //=======iterate methods=======//

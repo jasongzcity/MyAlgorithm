@@ -53,7 +53,7 @@ public:
     }
 
     /**
-    * Return the reference of the element at stack's top.
+    * Return the element at stack's top.
     * Return NULL if empty stack.
     **/
     T Top()
@@ -78,4 +78,3 @@ public:
 ALGORITHM_END
 
 #endif //MYSTACK_H
-

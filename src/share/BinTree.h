@@ -17,7 +17,7 @@ ALGORITHM_BEGIN
 
 typedef enum {RB_RED,RB_BLACK} RBColor;    //for red black tree
 
-///////////////////////////////FAST ROUTE//////////////////////////////////
+///////////////////////////////SHORTCUT//////////////////////////////////
 ////JUDGE LOGIC//////
 //all judge function use x as the node itself, not the node's pointer.
 #define IsRoot(x) (!(x).Parent)   
@@ -35,7 +35,7 @@ typedef enum {RB_RED,RB_BLACK} RBColor;    //for red black tree
 #define Sibling(x) (IsLChild(x)? (x).Parent->RChild: (x).Parent->LChild) //the "brother" node the x.use x as the node itself.
 #define Uncle(x) Sibling(((x).Parent))  //the "brother" of x's parent.use x as node itself
 #define FromParentTo(x) (IsLChild(x)? (x).Parent->LChild:(x).Parent->RChild)//the pointer to x itself own by x's parent
-/////////////////////////////////FAST ROUTE END////////////////////////////////////////
+/////////////////////////////////SHORTCUT END////////////////////////////////////////
 
 //the node of binary tree
 template <typename T>
@@ -295,7 +295,7 @@ public:
         return (Data == p->Data);
     }
 
-};//class BinNode
+};
 
 /**
 * Binary Tree.

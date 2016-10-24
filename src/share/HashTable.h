@@ -54,7 +54,7 @@ public:
 * hashfunc should have no-argument constructor
 * and overloaded operator(), which accepts a key as a parameter, and return 
 * integer hashcode.
-* Also the key type should have operator=.
+* Also the key type should have overloaded operator=.
 **/
 
 #define DEFAULT_LOAD_FACTOR 0.5

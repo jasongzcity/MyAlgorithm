@@ -85,7 +85,6 @@ template<typename T> Rank Partition2(T* buff,Rank lo,Rank hi)
 }
 
 /**
-* TODO: RANDOMIZE!!
 * TODO: NAMING.
 * This method has same problem with Partition1, in degenerate situaltion,
 * its time complexity degenerate to O(n^2).
@@ -93,10 +92,11 @@ template<typename T> Rank Partition2(T* buff,Rank lo,Rank hi)
 **/
 template<typename T> Rank Partition3(T* buff,Rank lo,Rank hi)
 {
+    swap(buff[hi],buff[lo+rand()%(hi-lo+1)]);
     Rank i = lo - 1;
     for(Rank j=lo;j<hi;j++)
     {
-        if(buff[j]<=buff[hi])//swap to i;
+        if(buff[j]<=buff[hi])//swap to i; use buff[hi] as pivot.
         {
             i++;
             swap(buff[j],buff[i]);
@@ -108,11 +108,11 @@ template<typename T> Rank Partition3(T* buff,Rank lo,Rank hi)
 }
 
 /**
-* TODO: RANDOMIZE!!
 * TODO: NAMING.
 **/
 template<typename T> Rank Partition4(T* buff,Rank lo,Rank hi)
 {
+    swap(buff[hi],buff[lo+rand()%(hi-lo+1)]);
     bool toggle = false;
     Rank i = lo - 1;
     for(Rank j=lo;j<hi;j++)
@@ -161,6 +161,7 @@ template<typename T> Rank Partition4(T* buff,Rank lo,Rank hi)
 **/
 template<typename T> void QuickSort(T* buff, Rank lo, Rank hi, int partitionflag = 0)       
 {
+    PrepareRandom();
     Rank mi;
     if(!(lo<hi))
         return;
