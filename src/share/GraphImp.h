@@ -126,8 +126,8 @@ template<typename Tv,typename Te> template<typename VST> void Graph<Tv,Te>::DFS_
         else if(status(u) == DISCOVERED)//DISCOVERED not VISITED.
             type(start,u) = BACKWARD;        //so its parent vertex.
         else                                                      //VISITED
-            type(start,u) = (dTime(start) < dTime(u) )? FORWARD:CROSS;  //if FORWARD, start is u's parent
-    }                                                                                                                   // if CROSS , not in the same branch
+            type(start,u) = (dTime(start) < dTime(u) )? FORWARD:CROSS;//if FORWARD, start is u's parent. If CROSS , not in the same branch
+    }
     fTime(start) = ++clock;             //active time: fTime - dTime
     status(start) = VISITED;
 }

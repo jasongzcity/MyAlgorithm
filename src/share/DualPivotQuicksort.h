@@ -184,6 +184,7 @@ template <typename T> void DualPivotQuicksort(T* a, Rank lo, Rank hi, bool leftm
     * Pointer k is the first index of ?-part.
     */
 
+    //deal with degenerate situation.
     //use flag == 3 to deal with circumstance that elements are highly duplicated.
     if(a[e1] == a[e2] || a[e2] == a[e3] || a[e3] == a[e4] || a[e4] == a[e5])
     {

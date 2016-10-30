@@ -47,7 +47,7 @@ public:
     BinNodePosi(T) LChild;
     BinNodePosi(T) RChild;
     int Height;//the height of the node. If the node is a leaf, length=0
-    int Npl;
+    int Npl;//null path length for left heap.
     RBColor Color;//the color of the node
 
     BinNode()
@@ -454,7 +454,7 @@ public:
     }
 
     /////////////////////practise..////////////////////////////
-    // The question is: check if the data of the node larger than the sum of its ancestors' data
+    // The question is: check if the data of any node in this tree larger than the sum of its ancestors' data
     //using recursive method and iteration(loop) method to solve this problem respectively
 
     //the entrance

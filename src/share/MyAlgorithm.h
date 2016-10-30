@@ -39,16 +39,16 @@ public:
 template <typename T> class CountElement
 {
 private:
-	int count;
+    int count;
 public:
-	CountElement()
-	{
-		count = 0;
-	}
-	virtual void operator()(T const& e)
-	{
-		count++;
-	}
+    CountElement()
+    {
+        count = 0;
+    }
+    virtual void operator()(T const& e)
+    {
+        count++;
+    }
     int result()
     {
         return count;

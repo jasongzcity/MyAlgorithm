@@ -203,8 +203,7 @@ public:
     /**
     * Find element e or the suitable position for e 
     * in the range[lo,hi) using binary search.
-    * This method is supposed to work with insertion sort,
-    * it returns the Rank r is the largest position for the reason of fast insertion. 
+    * This method is supposed to work with insertion sort.
     * Time complexity: O(logn)
     **/
     Rank BinSearch(T const& e,Rank lo,Rank hi) const
