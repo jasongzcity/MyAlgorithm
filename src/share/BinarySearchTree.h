@@ -17,7 +17,7 @@ ALGORITHM_BEGIN
 * A BinarySearchTree is a binary tree with nodes in specific order:
 * the left child node is always smaller and the right child node is always larger than current node.
 * Thus, the inorder traversal of BinarySearchTree should be in sorted sequence, from the smallest to the largest.
-* So Time complexity of searching, insering method becomes O(logn) in average.
+* So Time complexity of searching, inserting methods becomes O(logn) in average.
 * However, if not "balanced" the Time complexity will become O(n) in worst circumstances.
 * So, the various extensions of BST are focusing on the different way of keeping "balance", to achieve better performance.  
 **/
@@ -139,7 +139,7 @@ protected:
         else // if x has both children, find its successor to replace it.
         {
             w = w->Succ();
-            swap(w->Data,x->Data);
+            swap(w->Data,x->Data); // so w has only left child or right child.
             hot = w->Parent;
             succ = w->RChild;//w must not have left child
             if(hot == x)//w is the right child of x
