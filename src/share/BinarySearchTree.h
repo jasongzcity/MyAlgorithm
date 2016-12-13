@@ -56,6 +56,8 @@ protected:
 
     /**
     * use connect34 method above to rotate(and maintain balance)
+    * Notice: Remember to reconnect the great grandparent to the grandparent
+    * after the rotation
     **/
     BinNodePosi(T) rotateAt(BinNodePosi(T) v)   
     {                                                                           //zig - clockwise. zag - counterclockwise
@@ -104,7 +106,7 @@ protected:
 
     /**
     * remove element at x, use hot to record the parent of the removal node, 
-    * x also the reference of the parent pointer
+    * x also the reference of the parent pointer.
     **/
     BinNodePosi(T) RemoveAt(BinNodePosi(T)& x,BinNodePosi(T)& hot)
     {
@@ -162,6 +164,7 @@ public:
     * Search for element e in the BST
     * Return the pointer's reference of target element,
     * or NULL if target element not found.
+    * And the BST's _hot is the target node's parent.
     **/
     virtual BinNodePosi(T)& Search(T const& e)
     {
