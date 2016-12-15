@@ -23,6 +23,7 @@
 #include "../src/share/BinaryHeap.h"
 #include "../src/share/LeftHeap.h"
 #include "../src/share/BTree.h"
+#include "../src/share/RBTree.h"
 
 void TestString();
 void TestVector();
@@ -40,6 +41,7 @@ void TestDPQuicksort();
 void TestBinaryHeap();
 void TestLeftHeap();
 void TestBTree();
+void TestRBTree();
 
 //skip n lines for good looking on the console ;-)
 inline void SkipLines(int n)

@@ -22,7 +22,7 @@ ALGORITHM_BEGIN
 * So, the various extensions of BST are focusing on the different way of keeping "balance", to achieve better performance.  
 **/
 template<typename T>
-class BinarySearchTree : protected BinTree<T>
+class BinarySearchTree : public BinTree<T>
 {
 protected:
     BinNodePosi(T) _hot;//use to store the target node's parent, frequently used in further externsion

@@ -307,6 +307,7 @@ class BinTree
 protected:
     BinNodePosi(T) _root;
     int _size;
+
     virtual int UpdateHeight(BinNodePosi(T) p) // reserve for further extension, different trees have different definition for height.
     {
         //using namespace std;
@@ -325,6 +326,54 @@ protected:
                 break;
             p = p->Parent;
         }
+    }
+
+    /**
+    * rotate left at node n
+    * the caller should adjust the node's height himself.
+    * Return false if rotation fail.
+    * Return true if rotation success.
+    **/
+    bool rotateLeft(BinNodePosi(T) n)
+    {
+        BinNodePosi(T) rc = n->RChild;
+        BinNodePosi(T) p = n->Parent;
+        if(rc==NULL)
+            return false;//can't rotate left if right child doesn't exist
+        n->RChild = rc->LChild;
+        if(n->RChild != NULL)
+            n->RChild->Parent = n;
+        rc->LChild = n;
+
+        n->Parent = rc;
+        rc->Parent = p;
+        if(p!=NULL)
+            FromParentTo(*n) = rc;
+        return true;
+    }
+
+    /**
+    * rotate right at node n
+    * the caller should adjust the node's height himself.
+    * Return false if rotation fail.
+    * Return true if rotation success.
+    **/
+    bool rotateRight(BinNodePosi(T) n)
+    {
+        BinNodePosi(T) lc = n->LChild;
+        BinNodePosi(T) p = n->Parent;
+        if(lc==NULL)
+            return false;//can't rotate left if right child doesn't exist
+        n->LChild = lc->RChild;
+        if(n->LChild != NULL)
+            n->LChild->Parent = n;
+        lc->RChild = n;
+
+        n->Parent = lc;
+        lc->Parent = p;
+        if(p!=NULL)
+            FromParentTo(*n) = lc;
+        return true;
     }
 
 public:
