@@ -73,6 +73,22 @@ public:
             return NULL;
         return Remove(Size-1);
     }
+
+    int size()
+    {
+        return Size;
+    }
+    
+    template<typename VST> void Traverse(VST& visit)
+    {
+        for(int i=0;i<Size;i++)
+            visit((*this)[i]);
+    }
+
+    T& operator[](int i)
+    {
+        return DataBuff[i];
+    }
 };
 
 ALGORITHM_END

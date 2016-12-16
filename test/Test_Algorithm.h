@@ -43,6 +43,12 @@ void TestLeftHeap();
 void TestBTree();
 void TestRBTree();
 
+
+//solve N Queen problem using backtrack
+void PlaceQueen(int N,int limit);
+
+void SimulateBank(int,int,int);
+
 //skip n lines for good looking on the console ;-)
 inline void SkipLines(int n)
 {

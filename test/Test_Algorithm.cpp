@@ -53,8 +53,12 @@ int main(int argc,char** argv)
     //TestBTree();
     //SkipLines(3);
 
-    TestRBTree();
-    SkipLines(3);
+    //TestRBTree();
+    //SkipLines(3);
+
+    //PlaceQueen(8,100);
+
+    SimulateBank(5,8,800);
 
     std::cin.get();
     return 0;
