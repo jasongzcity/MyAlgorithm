@@ -5,7 +5,7 @@
  * Author: lwz
  */
 
-#include "stdafx.h"
+#include "Test_Algorithm.h"
 
 void TestVector()
 {

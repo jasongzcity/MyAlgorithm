@@ -5,7 +5,7 @@
 * Created on 2016-12-16
 **/
 
-#include "stdafx.h"
+#include "Test_Algorithm.h"
 
 class Queen;
 //print queen on standard output

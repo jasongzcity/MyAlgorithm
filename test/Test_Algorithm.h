@@ -25,6 +25,8 @@
 #include "../src/share/BTree.h"
 #include "../src/share/RBTree.h"
 
+#include <cstdio>
+
 void TestString();
 void TestVector();
 void TestLinkedList();

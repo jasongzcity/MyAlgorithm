@@ -4,7 +4,8 @@
 * Created on 2016/10/08
 * Author: lwz
 **/
-#include "stdafx.h"
+
+#include "Test_Algorithm.h"
 
 void TestStack()
 {

@@ -1,3 +1,3 @@
-algorithm
+Project MyAlgorithm
 
-some coursework of algorithm & data structure here.
+Implemented some frequently used data structures and algorithms.

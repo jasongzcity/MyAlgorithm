@@ -5,8 +5,7 @@
 * Author:lwz
 **/
 
-#include "stdafx.h"
-
+#include "Test_Algorithm.h"
 
 using namespace MyAlgorithm;
 //recursive method for preorder traversal in this test.

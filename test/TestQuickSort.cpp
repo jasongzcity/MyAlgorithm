@@ -4,8 +4,7 @@
 * Author: lwz
 **/
 
-#include "stdafx.h"
-#include <stdlib.h>
+#include "Test_Algorithm.h"
 
 void TestQuickSort()
 {

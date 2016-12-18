@@ -5,7 +5,7 @@
 * Created: 2016/10/11
 **/
 
-#include "stdafx.h"
+#include "Test_Algorithm.h"
 
 void TestBinaryTree()
 {

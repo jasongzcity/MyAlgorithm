@@ -6,7 +6,7 @@
 * Author: lwz
 **/
 
-#include "stdafx.h"
+#include "Test_Algorithm.h"
 
 /**
 * class Customer to simulate the customer's behavior

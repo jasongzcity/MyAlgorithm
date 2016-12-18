@@ -80,7 +80,7 @@ template<typename E> void swap(E& a, E& b)
     b = temp;
 }
 
-inline void PrepareRandom()
+void PrepareRandom()
 {
     time_t t;
     time(&t);

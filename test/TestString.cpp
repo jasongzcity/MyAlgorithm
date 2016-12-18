@@ -1,4 +1,10 @@
-#include "StdAfx.h"
+/**
+* TestString.cpp
+* Last modified on 2016-12-19 
+* Author: lwz
+**/
+
+#include "Test_Algorithm.h"
 
 void TestString()
 {

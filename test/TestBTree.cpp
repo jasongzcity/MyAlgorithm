@@ -4,7 +4,7 @@
 * Author: lwz
 **/
 
-#include "stdafx.h"
+#include "Test_Algorithm.h"
 
 class TravBTree
 {
