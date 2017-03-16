@@ -1,0 +1,6 @@
+3Sum 的 优化算法是O(n^2) 
+brute force 是 O(n^3)
+
+4Sum 的brute force是O(n^4)
+这题的代码中, 我实现了将这种NSum问题推广到N无限大的情况(运用递归). 
+时间复杂度为O(n^(N-1))

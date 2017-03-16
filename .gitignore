@@ -17,3 +17,12 @@ Debug
 #test*
 Local*
 Trace*
+test/Test*
+
+
+#leetcode
+leetcode/.idea
+leetcode/.metadata
+leetcode/out/
+leetcode/RemoteSystemTempFiles
+leetcode/leetcode*
