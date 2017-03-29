@@ -1,0 +1,10 @@
+迭代方法: 难点在于* 号的处理. 特别地, 运用match 变量来控制 text指针越界 和 不等 带来的逻辑陷阱.
+解释: 考虑text:aaaa 和 pattern: *a. 当 pattern[1] 比对完text[2] 时, pattern指针跳到2, 越界, 若不用match控制,
+text[3] 也被视为与pattern[2] 不等 又跳回pattern[1] 且 将text[3]认为与pattern[0]的*匹配, 造成返回false
+此题与NQueen的回溯法相似.
+match 用于指示上一个*号 匹配到的最后一个字符的下一个字符.
+
+DP方法. 首先 和 #10 regExpMatching 一样, 切记table[i][j] 表示 text[0..i-1] 和 pattern[j-1] 的匹配结果.
+写出递归式,(和#10类似) 易得代码
+
+复杂度分析也在code中了.

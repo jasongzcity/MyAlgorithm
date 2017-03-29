@@ -1,0 +1,4 @@
+这道题关键在于理解permutation(排列) 
+next permutation就是字母序的下一排列. 例如, 对于字母序, 12334 < 12433. 因为index = 2处 3<4(按照字母序)
+而next permutation指的就是所有的字母升序排列中的下一排列. 即 对于 排列pi 和pj , 不存在 pi<px<pj, 那么pi就是pj
+的前一排列(prev permutation) 而 pj就是pi的下一排列(next permutation)

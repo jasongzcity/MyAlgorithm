@@ -1,0 +1,8 @@
+从程序执行角度和矩阵范围看,相当于对于pattern 中每个字符, 都去对text字符串进行扫描比对.
+当当前pattern字符等于当前text字符,或等于. 则当前相等. True状态传递.
+而当当前pattern字符等于*时, 判断 pattern前一字符是否等于当前text字符 或 等于. 若是不相等, 则这个*及其前面的字符需跳过.
+若相等,则 table[i][j] = table[i-1][j]      // in this case, a* counts as multiple a
+                * or table[i][j] = table[i][j-1]   // in this case, a* counts as single a
+                * or table[i][j] = table[i][j-2]   // in this case, a* counts as empty
+根据以上描述: 第j个pattern字符需要比对第i个text字符时, 即table[i][j]时,只需要table[i-1][j-1] table[i][j-1] table[i-1][j]的判断结果.
+故而,一个矩阵, 加上两个循环可以完美解决这个问题.

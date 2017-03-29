@@ -1,0 +1,2 @@
+这个算法的循环中,一直保持着[0,lo) 的元素小于target,  (hi,len)的元素大于target
+当lo == hi时,若nums[lo] == target 返回lo. 若nums[lo]<target,返回lo+1,因lo+1必然大于target. 若nums[lo]>target, 返回lo, 因lo-1必然小于target
