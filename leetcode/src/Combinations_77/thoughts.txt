@@ -1,0 +1,10 @@
+递归combinations 方法
+类似题目
+1.Combination Sum_39
+2.Combination SumII_40
+3.Combination SumIII_216
+4.Combination SumIV_377
+5.Combinations_77
+6.Permutations_46 - next permutation/ prev permutation/permuatationII/permutation sequence
+
+实际上 combinations 可以看作是dfs类型的递归.

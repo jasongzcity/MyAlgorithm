@@ -1,0 +1,3 @@
+Permutations_46 - next permutation/ prev permutation/permuatationII/permutation sequence
+方法也类似于combination 依然是dfs的思路
+循环中, 也可以用交换的方法,或许会更快

@@ -1,0 +1,2 @@
+无难度.
+为了"炫技" 和优化, 各种follow up, 还需要熟练掌握StringBuilder和StringBuffer.

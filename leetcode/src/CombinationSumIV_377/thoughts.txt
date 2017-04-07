@@ -1,0 +1,4 @@
+一维DP..  当形如rs += getComb2(a,target-a[i]); 
+这种最优子结构出现时就应该想到.
+当用数组存储时就避免了重复计算子树.
+注意观察topdown 和buttomup的不同.
