@@ -1,0 +1,1 @@
+optimal思路和NQueenI 基本一样. 用 多个boolean数组表示 column 正对角/斜对角的Q情况会更好.

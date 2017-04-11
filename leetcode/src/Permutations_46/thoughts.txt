@@ -1,3 +1,5 @@
 Permutations_46 - next permutation/ prev permutation/permuatationII/permutation sequence
 方法也类似于combination 依然是dfs的思路
 循环中, 也可以用交换的方法,或许会更快
+
+交换方法: 这样begin就相当于当前要填的"坑". 逐个选择不同的数将坑填好后, 推进到下一个坑,继续此过程.

@@ -1,6 +1,7 @@
 package NQueen_51;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -73,7 +74,10 @@ public class Solution
 
     public static void main(String[] args)
     {
-        List<List<String>> list = solveNQueens(4);
+//        List<List<String>> list = solveNQueens(4);
+//        System.out.println(list);
+
+        List<List<String>> list = solveNQueens2(4);
         System.out.println(list);
 //        Queen[] qs = new Queen[10];
 //        Queen q = new Queen(0,1);
@@ -93,6 +97,43 @@ public class Solution
 //        System.out.println(ints[5]);
     }
 
+    public static List<List<String>> solveNQueens2(int n){
+        List<List<String>> rs = new ArrayList<>();
+        char[][] board = new char[n][n];     // use the board for recording.
+        for (int i = 0; i < board.length; i++)
+            Arrays.fill(board[i],'.');
+        putQueenInLine(rs,board,0);
+        return rs;
+    }
+
+    private static void putQueenInLine(List<List<String>> rs,char[][] board,int line){
+        if(line==board.length){ // base, get solution
+            List<String> l = new ArrayList<>(board.length);
+            for(char[] ca:board)
+                l.add(new String(ca));
+            rs.add(l);
+            return;
+        }
+
+        for (int i = 0; i < board.length; i++) {
+            if(isAvailable(board,line,i)){
+                board[line][i] = 'Q';
+                putQueenInLine(rs,board,line+1);
+                board[line][i] = '.'; // prepare for backtrack
+            }
+        }
+    }
+
+    private static boolean isAvailable(char[][] board,int x,int y){
+        int left = y-1,right = y+1;
+        for(int i=x-1;i>-1;i--){
+            if(board[i][y]=='Q'||(left>-1&&board[i][left]=='Q')||
+                    (right<board.length&&board[i][right]=='Q')) return false;
+            left--;
+            right++;
+        }
+        return true;
+    }
 
     private static Queen testReference(Queen[] qs,int i)
     {

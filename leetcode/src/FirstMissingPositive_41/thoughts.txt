@@ -1,0 +1,1 @@
+巧妙利用数组做map的例子.隐形: key i value i-1

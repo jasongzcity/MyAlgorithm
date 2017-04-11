@@ -45,11 +45,48 @@ public class Solution
         }
     }
 
+    // most voted solution on leetcode, same thought but
+    // more concise & a little bit faster.
+    private static void getPermute2(int[] a,int begin,List<List<Integer>> rs){
+        if(begin==a.length){
+            List<Integer> l = new ArrayList<>(a.length);
+            for(int i:a) l.add(i);
+            rs.add(new ArrayList<>(l));
+            return;
+        }
+
+        for (int i = begin; i < a.length; i++) {
+            swap(a,begin,i);
+            getPermute2(a,begin+1,rs);
+            swap(a,begin,i);
+        }
+    }
+
+    private static void swap(int[] a,int i,int j){
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    public static List<List<Integer>> optimalCaller(int[] nums) {
+        List<List<Integer>> rs = new ArrayList<>();
+        getPermute2(nums,0,rs);
+        return rs;
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{1,2,3};
 
         List rs = permute(nums);
 
+//        for(Object o:rs.toArray()){
+//            for(Object obj: ((List<Integer>)o).toArray()){
+//                System.out.print((Integer)obj+" ");
+//            }
+//            System.out.println();
+//        }
+
+        rs = optimalCaller(nums);
         for(Object o:rs.toArray()){
             for(Object obj: ((List<Integer>)o).toArray()){
                 System.out.print((Integer)obj+" ");

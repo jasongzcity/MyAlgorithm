@@ -9,7 +9,7 @@ package NumbersWithUniqueDigits_357;
  * of 0 ≤ x < 100, excluding [11,22,33,44,55,66,77,88,99])
  */
 public class Solution {
-    public static int countNumbersWithUniqueDigits(int n) {
+    public static int countNumbersWithUniqueDigits(int n){
         if(n==0) return 1;
         int rs = 10;
         for (int i = 2; i <= n; i++) {
