@@ -1,0 +1,1 @@
+这题跟前述的PlusOne/Multiply String 都是一个类型题目, 通过代码来进行String的数学运算操作.
