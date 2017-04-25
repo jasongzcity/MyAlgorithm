@@ -1,5 +1,6 @@
 package InsertInterval_57;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,5 +60,29 @@ public class Solution {
         int end;
         Interval() { start = 0; end = 0; }
         Interval(int s, int e) { start = s; end = e; }
+    }
+
+    // most voted solution on leetcode
+    public static List<Interval> insert2(List<Interval> intervals, Interval newInterval){
+        int i = 0;
+        while(i<intervals.size()&&intervals.get(i).end<newInterval.start) ++i;
+        // now element at i position is overlapped with newInterval
+        while(i<intervals.size()){
+            Interval in = intervals.get(i);
+            if(in.start<=newInterval.end){
+                newInterval.start = Math.min(newInterval.start,in.start);
+                newInterval.end = Math.max(newInterval.end,in.end);
+                intervals.remove(i);
+            }else{
+                break;
+            }
+        }
+        intervals.add(i,newInterval);
+        return intervals;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> l = new ArrayList<>();
+        l.add(l.size(),1);
     }
 }

@@ -1,0 +1,46 @@
+先看本题的非DP解法.相当于图算法中的DFS.通过getMaxRec方法计算每个以
+当前点为左上角的矩阵的大小.
+实际上该解法有重复计算的过程,故而较慢.
+
+DP解法中两个巧妙点:
+1.运用数组而不是矩阵(矩阵版本可在二刷时重做),因递推式只需要用到上一row的内容,可以安全的覆盖
+2.运用currentLeft currentRight变量传递了当前行中的状态.
+
+transition equation:
+
+    left(i,j) = max(left(i-1,j), cur_left), cur_left can be determined from the current row
+
+    right(i,j) = min(right(i-1,j), cur_right), cur_right can be determined from the current row
+
+    height(i,j) = height(i-1,j) + 1, if matrix[i][j]=='1';
+
+    height(i,j) = 0, if matrix[i][j]=='0'
+    
+注意实际上 左数组和右数组的初始值选取一个方便比较的值即可, 因为在该位置等于0 时,去什么数无所谓, 高等于0;
+
+
+本题还有另一个解法:
+英文说明:
+We can apply the maximum in histogram in each row of the 2D matrix. What we need is to maintain an int array for each row, 
+which represent for the height of the histogram.
+Please refer to https://leetcode.com/problems/largest-rectangle-in-histogram/ first.
+
+Suppose there is a 2D matrix like
+
+1 1 0 1 0 1
+
+0 1 0 0 1 1
+
+1 1 1 1 0 1
+
+1 1 1 1 0 1
+
+First initiate the height array as 1 1 0 1 0 1, which is just a copy of the first row. Then we can easily calculate the max area is 2.
+
+Then update the array. We scan the second row, when the matrix[1][i] is 0, set the height[i] to 0; else height[i] += 1, 
+which means the height has increased by 1. So the height array again becomes 0 2 0 0 1 2. The max area now is also 2.
+Apply the same method until we scan the whole matrix. the last height arrays is 2 4 2 2 0 4, so the max area has been found as 2 * 4 = 8.
+
+Then reason we scan the whole matrix is that the maximum value may appear in any row of the height.
+见以上例子.一行一行叠加, 每一行叠加后用#84 中的算法算最大体积. 注意遇到0时不叠加,清零.
+到第四行时, 2 4 2 2 0 4 根据#84算法得8.
