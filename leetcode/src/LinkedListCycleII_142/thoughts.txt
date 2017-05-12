@@ -1,0 +1,7 @@
+Floyd's cycle detection algorithm, also known as the hare-tortoise algorithm.
+
+    s + m = k (turtle)
+    s + m + r = 2k (hare)
+    then we will have s = r - m.
+    
+s代表链起点到环起点的距离. m代表环起点到相遇点的距离.r是环的长度.
