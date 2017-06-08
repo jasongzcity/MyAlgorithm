@@ -1,0 +1,3 @@
+DP/BFS
+这题有一点没有交代清楚:dict中的词是可以重复使用的.
+另外我的DFS方法适合用于WOrd breakII

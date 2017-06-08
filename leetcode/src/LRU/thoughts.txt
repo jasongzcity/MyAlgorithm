@@ -1,0 +1,1 @@
+LRU典型实现是一个map+一个linkedlist.注意linkedlist头尾哨兵

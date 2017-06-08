@@ -1,5 +1,7 @@
 package MinimumWindowSubstring_76;
 
+import java.util.AbstractCollection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,5 +143,39 @@ public class Solution
             }
         }
         return minLength==Integer.MAX_VALUE?"":s.substring(minPosition,minPosition+minLength);
+    }
+
+    // the solutions above are far too complicated
+    // I am going to rewrite a simpler one
+    // accepted
+    public String minWindow3(String s, String t){
+        int slen = s.length(),tlen = t.length(),min = Integer.MAX_VALUE,minBegin = 0;
+        int begin = 0,end = 0,chars = 0;
+        int[] map = new int[128];
+        for(int i=0;i<tlen;i++)
+            if(++map[t.charAt(i)]==1)
+                chars++;
+
+        while(end<slen){
+            while(end<slen&&chars!=0)
+                if(--map[s.charAt(end++)]==0)
+                    --chars;
+            if(chars!=0) break; // no such window
+            // now shrink the window
+            while(chars==0)
+                if(++map[s.charAt(begin++)]==1)
+                    ++chars; // now chars go missing again
+
+            if(min>end-begin+1){
+                min = end-begin+1;
+                minBegin = begin-1;
+            }
+        }
+        return min==Integer.MAX_VALUE?"":s.substring(minBegin,minBegin+min);
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.minWindow3("feersfdabccdefefsdaw","ffesd"));
     }
 }

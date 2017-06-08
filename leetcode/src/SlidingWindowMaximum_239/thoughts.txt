@@ -1,0 +1,14 @@
+注意这题和minstack(#155)的相关之处:通过一个Maxstack这个问题可以很简单解决.
+应该是maxQueue
+
+问题难点和minstack不同在于:minstack可以将max状态维持在栈顶.这和栈的先进后出的
+特点刚好契合,在本题中不完全是这样.
+
+两趟算法的原理:
+通过例子[1,3,-1,-3,5,3,-1,7]来说明
+
+证明正确性:
+不失一般性,设当前位置cur,窗口大小width,[cur...cur+width-1]是窗口,窗口之间有一区间分界点k(k%width=0),
+maxleft[cur+width-1]保证是[k..cur+width-1]间最大的
+maxright[cur]保证是[cur..k]间最大的 
+得证

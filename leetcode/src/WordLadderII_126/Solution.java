@@ -90,7 +90,7 @@ public class Solution {
         wordList.add("log");
         wordList.add("cog");
 //        System.out.println(s.findLadders2("hit","cog",wordList).toString());
-        System.out.println(s.findLadders3("hit","cog",wordList).toString());
+        System.out.println(s.findLadders4("hit","cog",wordList).toString());
     }
 
     // BFS then DFS
@@ -173,6 +173,9 @@ public class Solution {
     }
 
     // make a graph
+    // Accepted
+    // Notice it may be faster using queue instead of set to record next iteration,
+    // because set's iteration can be slow.
     public List<List<String>> findLadders3(String beginWord, String endWord, List<String> words){
         words.add(beginWord);
         int size = words.size(),wordLen = beginWord.length();
@@ -180,55 +183,46 @@ public class Solution {
         Set<String> dict = new HashSet<>(size),beginSet = new HashSet<>();
         for(String s:words) dict.add(s);
         if(!dict.contains(endWord)) return new ArrayList<>();
-        // O(n^2) time to construct a graph
-        for(String s:dict){
-            StringBuilder sb = new StringBuilder(s);
-            Set<String> neighbors = new HashSet<>();
-            graph.put(s,neighbors);
-            for(int i=0;i<wordLen;i++){
-                char backup = s.charAt(i);
-                for(char c='a';c<='z';c++){
-                    if(c==backup) continue;
-                    sb.setCharAt(i,c);
-                    String neighbor = sb.toString();
-                    if(dict.contains(neighbor)){
-                        neighbors.add(neighbor);
-                    }
-                }
-                sb.setCharAt(i,backup);
-            }
-        }
+        // BFS to construct a graph and find endWord
+        // Notice: its not the whole graph. It contains
+        // the shortest path to the endWord and that will be enough
         beginSet.add(beginWord);
         dict.remove(beginWord);
-        int count = 1;
-        boolean found = false;
-        outer:
-        while(!beginSet.isEmpty()&&!found){
+        Set<String> dictBackup = new HashSet<>(dict); // backup for the dict
+        int count = 1,minSteps = Integer.MAX_VALUE;
+        while(!beginSet.isEmpty()&&count<minSteps){
             ++count;
             HashSet<String> next = new HashSet<>();
-            for(String s:beginSet) {
-                Set<String> neighbors = graph.get(s);
-                for(String neighbor:neighbors){
-                    if(neighbor.equals(endWord)) {
-                        found = true;
-                        break outer;
+            for(String s:beginSet){
+                Set<String> neighbors = new HashSet<>();
+                StringBuilder sb = new StringBuilder(s);
+                for(int i=0;i<wordLen;i++){
+                    char backup = s.charAt(i);
+                    for(char c='a';c<='z';c++){
+                        if(c==backup) continue; // skip itself
+                        sb.setCharAt(i,c);
+                        String neighbor = sb.toString();
+                        if(dict.contains(neighbor)){
+                            if(neighbor.equals(endWord)) minSteps = count;
+                            neighbors.add(neighbor);
+                            next.add(neighbor);
+                        }
                     }
-                    if(dict.contains(neighbor)){ // unvisited
-                        next.add(neighbor);
-                        dict.remove(neighbor);
-                    }
+                    sb.setCharAt(i,backup);
                 }
+                graph.put(s,neighbors);
             }
+            for(String s:next) dict.remove(s); // IMPORTANT: avoid nodes in the same "level" points to each other.
+            // And the next level's node points back, this will optimize the algorithm a lot.
             beginSet = next;
         }
-        if(!found) return new ArrayList<>();
+        if(beginSet.isEmpty()) return new ArrayList<>();
         // now dfs search
         List<List<String>> rs = new ArrayList<>();
         List<String> list = new ArrayList<>(count);
         list.add(beginWord);
-        for(String s:words) dict.add(s);
-        dict.remove(beginWord);
-        dfs2(rs,list,graph,count-1,dict,beginWord,endWord);
+        dict = dictBackup;
+        dfs2(rs,list,graph,minSteps-1,dict,beginWord,endWord);
         return rs;
     }
 
@@ -247,6 +241,87 @@ public class Solution {
                 list.add(neighbor);
                 dict.remove(neighbor);
                 dfs2(rs,list,graph,step-1,dict,neighbor,endWord);
+                dict.add(neighbor);
+                list.remove(list.size()-1); // backtrack
+            }
+        }
+    }
+
+    // optimization of findLadders3
+    // two-end BFS to construct the graph
+    // Also change the graph to HashMap<String,List<String>>
+    // the iteration of list is much faster than set
+    public List<List<String>> findLadders4(String beginWord, String endWord, List<String> words){
+        int size = words.size(),wordLen = beginWord.length();
+        List<List<String>> rs = new ArrayList<>();
+        Map<String,List<String>> graph = new HashMap<>(size);
+        Set<String> dict = new HashSet<>(size);
+        for(String s:words) dict.add(s);
+        if(!dict.contains(endWord)) return rs;
+        dict.remove(beginWord);
+        Set<String> beginSet = new HashSet<>(size),endSet = new HashSet<>(size),dictBackup = new HashSet<>(dict);
+        beginSet.add(beginWord);
+        endSet.add(endWord);
+        dict.remove(endWord);
+        int count = 1,minSteps = Integer.MAX_VALUE;
+        while(!beginSet.isEmpty()&&!endSet.isEmpty()&&count<minSteps){
+            ++count;
+            boolean beginSetIsLarger = beginSet.size()>endSet.size();
+            Set<String> larger = beginSetIsLarger?beginSet:endSet;
+            Set<String> smaller = beginSetIsLarger?endSet:beginSet;
+            Set<String> next = new HashSet<>(smaller.size()<<1);
+            for(String s:smaller){
+                StringBuilder sb = new StringBuilder(s);
+                for(int i=0;i<wordLen;i++){
+                    char backup = s.charAt(i);
+                    for(char c='a';c<='z';c++){
+                        if(c==backup) continue; // skip itself
+                        sb.setCharAt(i,c);
+                        String neighbor = sb.toString();
+                        if(!dict.contains(neighbor)){
+                            if(larger.contains(neighbor)) minSteps = count;
+                            else continue;
+                        }
+                        // note we only maintain one direction(from begin to end)
+                        String key = beginSetIsLarger?neighbor:s;
+                        String value = beginSetIsLarger?s:neighbor;
+                        List<String> newList = graph.getOrDefault(key,new ArrayList<>());
+                        newList.add(value);
+                        graph.putIfAbsent(key,newList);
+                        next.add(neighbor);
+                    }
+                    sb.setCharAt(i,backup);
+                }
+            }
+            dict.removeAll(next); // avoid ring.
+            if(beginSetIsLarger) endSet = next;
+            else beginSet = next;
+        }
+        if(count<minSteps) return rs;
+        dict = dictBackup;
+        // DFS search
+        List<String> l = new ArrayList<>();
+        l.add(beginWord);
+        dfs3(rs,l,graph,minSteps-1,dict,beginWord,endWord);
+        return rs;
+    }
+
+    private void dfs3(List<List<String>> rs,List<String> list,Map<String,List<String>> graph,
+                      int step,Set<String> dict,String current,String endWord){
+        if(step==0) return;
+        List<String> neighbors = graph.get(current);
+        if(neighbors==null) return;
+        for(String neighbor:neighbors){
+            if(dict.contains(neighbor)){
+                if(neighbor.equals(endWord)){
+                    List<String> newList = new ArrayList<>(list);
+                    newList.add(endWord);
+                    rs.add(new ArrayList<>(newList));
+                    return;
+                }
+                list.add(neighbor);
+                dict.remove(neighbor);
+                dfs3(rs,list,graph,step-1,dict,neighbor,endWord);
                 dict.add(neighbor);
                 list.remove(list.size()-1); // backtrack
             }
