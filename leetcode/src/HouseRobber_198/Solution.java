@@ -14,6 +14,7 @@ package HouseRobber_198;
  * without alerting the police.
  */
 public class Solution {
+    // dp solution
     public int rob2(int[] a) {
         int len = a.length,max = Integer.MIN_VALUE;
         if(len==0) return 0;

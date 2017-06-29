@@ -9,19 +9,7 @@ import java.util.Random;
  */
 public class QSort
 {
-    private static Date date = new Date();
-
-    private static Random rand = new Random(date.getTime());
-
-    private static int randomInt() {
-        int rs = rand.nextInt();
-        return rs<0?-rs:rs;
-    }
-
-    private static int positiveRandomInt(int bound){
-        int rs = rand.nextInt(bound);
-        return rs<0?-rs:rs;
-    }
+    private static Random rand = new Random();
 
     private static void swap(int[] a,int i,int j){
         int temp = a[i];
@@ -38,7 +26,7 @@ public class QSort
 
     // Notice hi inclusive
     private static int hoarePartition(int[] a, int lo, int hi){
-        swap(a,lo,lo+(positiveRandomInt(100)%(hi-lo+1))); // randomize
+        swap(a,lo,lo+(rand.nextInt()%(hi-lo+1))); // randomize
         int pivot = a[lo];
         while(lo<hi){
             while(lo<hi) {
@@ -72,7 +60,7 @@ public class QSort
     // pivot at range [lo,slow)
     // and elements that larger than pivot at range [slow,fast)
     private static int lomutoPartition(int[] a,int lo,int hi){
-        swap(a,lo+positiveRandomInt(100)%(hi-lo+1),hi); // randomize pivot
+        swap(a,lo+rand.nextInt()%(hi-lo+1),hi); // randomize pivot
         int fast = lo,slow = lo;
         while(fast<hi){
             if(a[fast]<a[hi]){

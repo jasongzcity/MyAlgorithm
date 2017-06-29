@@ -1,0 +1,3 @@
+levelTraverse很naive..
+
+一个经验: queue/deque 要用linkedlist实现, 比ArrayDeque快多了

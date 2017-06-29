@@ -1,0 +1,3 @@
+堆排序很naive
+
+TreeSet较HashSet的优势: 能保存最大最小值.但每一步操作logn
