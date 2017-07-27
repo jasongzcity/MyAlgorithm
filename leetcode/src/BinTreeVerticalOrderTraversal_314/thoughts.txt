@@ -1,0 +1,5 @@
+这题难点在于同时表示一个节点的column/row 和左右次序.
+尝试用levelTraverse 并且在层级中保存节点column, 用一个map保存column对应list
+level遍历自动维持了正确的row和左右次序.
+
+更优方案选择先遍历全树, 算出最左和最右的level这样循环中可以少一些if语句.

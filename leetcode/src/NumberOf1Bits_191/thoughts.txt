@@ -1,0 +1,10 @@
+Hamming Weight 和 Hamming Distance 定义:
+详见: https://en.wikipedia.org/wiki/Hamming_weight
+文中定义:"The Hamming weight of a string is the number of symbols that are different from the zero-symbol of the alphabet used."
+那么对于一个二进制数hamming weight就是1的个数
+"In this binary case, it is also called the population count,[1] popcount, sideways sum,[2] or bit summation.[3]"
+注意名词 population count 或者 popcount
+
+hamming distance 可以理解为 edit distance. 两个二进制数的hamming distance 就是两个数间的01差异数.
+
+java 二进制数表示: 0bXXXXXXX 

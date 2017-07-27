@@ -43,6 +43,24 @@ public class Solution {
         return Math.max(rs[0],rs[1]);
     }
 
+    // improvement: we compute the money of the "grandchild" too early,
+    // more naturally, we should leave it to the child node.
+    // In the return array, the first element is the largest amount of money
+    // we can rob while we don't rob the current root,
+    // the second element is the largest amount of money we can rob while we
+    // have robbed the current root.
+    private int[] helper(TreeNode root){
+        int[] rs = new int[2];
+        if(root==null) return rs;
+
+        int[] left = helper(root.left);
+        int[] right = helper(root.right);
+
+        rs[1] = root.val+left[0]+right[0];
+        rs[0] = Math.max(left[1],left[0])+Math.max(right[1],right[0]);
+        return rs;
+    }
+
     // return the largest amount of money you can rob
     // from this tree
     // It runs slowly, because it recompute overlapped subproblems.
@@ -66,28 +84,10 @@ public class Solution {
         if(value!=null) return value;
 
         int val = root.val;
-        if(root.left!=null) val+=naive(root.left.left)+naive(root.left.right);
-        if(root.right!=null) val+=naive(root.right.left)+naive(root.right.right);
-        int rs = Math.max(val,naive(root.left)+naive(root.right));
+        if(root.left!=null) val+=naive2(root.left.left,map)+naive2(root.left.right,map);
+        if(root.right!=null) val+=naive2(root.right.left,map)+naive2(root.right.right,map);
+        int rs = Math.max(val,naive2(root.left,map)+naive2(root.right,map));
         map.put(root,rs);
-        return rs;
-    }
-
-    // improvement: we compute the money of the "grandchild" too early,
-    // more naturally, we should leave it to the child node.
-    // In the return array, the first element is the largest amount of money
-    // we can rob while we don't rob the current root,
-    // the second element is the largest amount of money we can rob while we
-    // have robbed the current root.
-    private int[] helper(TreeNode root){
-        int[] rs = new int[2];
-        if(root==null) return rs;
-
-        int[] left = helper(root.left);
-        int[] right = helper(root.right);
-
-        rs[1] = root.val+left[0]+right[0];
-        rs[0] = Math.max(left[1],left[0])+Math.max(right[1],right[0]);
         return rs;
     }
 }

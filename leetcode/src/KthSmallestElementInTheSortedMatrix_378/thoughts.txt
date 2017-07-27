@@ -1,0 +1,2 @@
+和Search 2D Matrix 类似.
+用range (某一范围内的数的个数做中轴),是解决kth number 的一个可以参考的方法.

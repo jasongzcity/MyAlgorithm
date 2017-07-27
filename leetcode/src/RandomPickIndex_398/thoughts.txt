@@ -1,0 +1,23 @@
+水塘抽样(reservoir sampling)问题: (这是一个经典抽样算法)
+给出一个数据流，这个数据流的长度很大或者未知。并且对该数据流中数据只能访问一次。
+请写出一个随机选择算法，使得数据流中所有数据被选中的概率相等。选出K个元素.
+
+详见: https://en.wikipedia.org/wiki/Reservoir_sampling
+下面是伪码: S是数据流,R是抽样结果..
+ReservoirSample(S[1..n], R[1..k])
+  // fill the reservoir array
+  for i = 1 to k
+      R[i] := S[i]
+
+  // replace elements with gradually decreasing probability
+  for i = k+1 to n
+    j := random(1, i)   // important: inclusive range
+    if j <= k
+        R[j] := S[i]
+证明:
+设有元素在数据流中的i位置(i>k).他进入抽样池的概率是k/i,进入抽样池中后不被替换的概率是:(1-1/i+1)*(1-1/i+2)....*(1-1/n)
+推得该元素进入抽样池并留在抽样池的概率是k/n
+元素位置i<=k:
+进入抽样池的概率是1,不被替换概率是:(1-1/k+1)*(1-1/k+2)*.....*(1-1/n)
+推得该元素进入抽样池并留在抽样池的概率是k/n
+        

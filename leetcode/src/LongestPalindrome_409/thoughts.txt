@@ -1,0 +1,3 @@
+和palindrome permutation(#266) 一个类型
+有点小坑,注意bugfree....
+

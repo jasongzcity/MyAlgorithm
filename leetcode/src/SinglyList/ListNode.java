@@ -23,7 +23,7 @@ public class ListNode {
     public void displayList(){
         ListNode l = this;
         while(l!=null){
-            System.out.print(String.valueOf(l.val)+" ");
+            System.out.print(String.valueOf(l.val)+",");
             l = l.next;
         }
         System.out.println();

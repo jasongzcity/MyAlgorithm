@@ -1,0 +1,12 @@
+每个字符串都和下一字符串比较,找到首个不相同的字母,即可标记为图的其中一个方向.
+由于确定小写字母,可以由int[][] int矩阵确定
+再用一个int[] 做访问flags即可.
+
+关于topo sort:注意!:
+topo sort 既可以用 DFS 也可以用BFS.
+DFS 的套路见 Course ScheduleII和本题,既可以用indegrees来控制下一个访问节点,也可以纯粹的DFS检查环,
+若无环则将访问序逆序(注意,a little trick)排好(course scheduleII 的optimal/ alien words)
+
+bfs就是通过indegrees 来检查邻居,一旦某邻居入度减到0表示该邻居无无前缀,可以放入拓扑序.
+
+另外,BFS 中可能出现没有节点入度为0,此时有两种可能:1.已经访问过所有节点. 2. 有环.

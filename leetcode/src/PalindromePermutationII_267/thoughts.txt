@@ -1,0 +1,2 @@
+本质上是combinations类型问题.
+注意permutation是组合,和顺序无关的组合

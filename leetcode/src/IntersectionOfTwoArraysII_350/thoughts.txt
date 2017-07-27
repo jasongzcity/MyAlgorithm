@@ -1,0 +1,8 @@
+分析以下follow up:
+What if the given array is already sorted? How would you optimize your algorithm? 排好序就更方便使用双指针和二分搜索
+What if nums1's size is small compared to nums2's size? Which algorithm is better?  \
+二分搜索较双指针更佳. 假设有输入num1:[0,1,1000] num2:[1,2,2,...,2,101] 这样双指针扫描了整个num2
+What if elements of nums2 are stored on disk,
+and the memory is limited such that you cannot load all elements
+into the memory at once?
+同样二分搜索更佳.每次搜索都只需查询O(logn)次num2 (n = len(num2))
