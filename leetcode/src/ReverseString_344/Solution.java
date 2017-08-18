@@ -18,6 +18,9 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.reverseString(""));
+//        System.out.println(s.reverseString(""));
+        String str = "abcdefg";
+        System.out.println(str);
+        System.out.println(s.reverseString(str));
     }
 }

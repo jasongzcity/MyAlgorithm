@@ -41,4 +41,9 @@ public class Solution {
         }
         return lo;
     }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        s.missingNumber2(new int[]{1,0});
+    }
 }

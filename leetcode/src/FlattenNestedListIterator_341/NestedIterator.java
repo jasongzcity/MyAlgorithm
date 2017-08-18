@@ -1,9 +1,9 @@
 package FlattenNestedListIterator_341;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import NestedInteger.NestedInteger;
 
 /**
  * Given a nested list of integers, implement an iterator to flatten it.
@@ -91,13 +91,6 @@ public class NestedIterator implements Iterator<Integer> {
 //        numStack.add(cur);
 //        return rs;
 //    }
-
-    // dummy class avoid compilation error
-    class NestedInteger{
-        public boolean isInteger(){ return false; }
-        public Integer getInteger(){ return -1; }
-        public List<NestedInteger> getList(){ return new ArrayList<>(); }
-    }
 
     // optimal solution on leetcode
     NestedInteger nextInt;

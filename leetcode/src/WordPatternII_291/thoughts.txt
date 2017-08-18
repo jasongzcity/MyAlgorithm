@@ -1,0 +1,3 @@
+优化方向: map改成 String[] 长度为26
+注意反向的map不可取. Map<String,Character>.  boolean[] 做set
+每次用String 去访问map会更慢.
