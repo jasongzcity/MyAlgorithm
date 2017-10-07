@@ -176,4 +176,55 @@ public class Solution {
         }
         return rs;
     }
+
+    // second session!
+    public ListNode addTwoNumbers4(ListNode l1, ListNode l2) {
+        ListNode longer, shorter;
+        int count1 = count(l1), count2 = count(l2), diff = Math.abs(count1-count2);
+        if(count1>count2){
+            longer = l1;
+            shorter = l2;
+        }else {
+            longer = l2;
+            shorter = l1;
+        }
+        if(add(longer, shorter, diff)){
+            ListNode n = new ListNode(1);
+            n.next = longer;
+            return n;
+        }else{
+            return longer;
+        }
+    }
+
+    private boolean add(ListNode longer, ListNode shorter, int diff){
+        if(longer==null) return false;
+        boolean plus1;
+        int sum;
+        if(diff > 0){
+            plus1 = add(longer.next, shorter, diff-1);
+            sum = longer.val;
+        }else{
+            plus1 = add(longer.next, shorter.next, diff);
+            sum = longer.val+shorter.val;
+        }
+        if(plus1) ++sum;
+        if(sum>=10){
+            plus1 = true;
+            longer.val = sum-10;
+        }else{
+            plus1 = false;
+            longer.val = sum;
+        }
+        return plus1;
+    }
+
+    private int count(ListNode head){
+        int count = 0;
+        while(head!=null){
+            ++count;
+            head = head.next;
+        }
+        return count;
+    }
 }

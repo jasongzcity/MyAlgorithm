@@ -35,4 +35,15 @@ public class Solution {
         System.out.println(maxProfit(a2));
         System.out.println(maxProfit(new int[0]));
     }
+
+    // Second session
+    public int maxProfit2(int[] prices){
+        if(prices.length<2) return 0;
+        int min = prices[0], max = 0;
+        for(int i:prices){
+            max = Math.max(max,i-min);
+            min = Math.min(min,i);
+        }
+        return max;
+    }
 }

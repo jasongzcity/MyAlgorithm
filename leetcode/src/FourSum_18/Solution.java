@@ -83,77 +83,87 @@ public class Solution
 
     public static void main(String[] args)
     {
-        int[] nums = new int[]{1,0,-1,0,-2,2};
-//        Integer[] temp = new Integer[10];
-//        temp[3] = 10;
-//        temp[8] = 1000;
-//        for(Integer e:temp)
-//            System.out.println(e);
-        List<List<Integer>> list = fourSum2(nums,0);
-        System.out.println(list);
+//        int[] nums = new int[]{-1,2,2,-5,0,-1,4};
+//
+        Solution s = new Solution();
+//        List<List<Integer>> list = s.fourSum(nums,3);
+//        System.out.println(list);
+
+        int[] nums2 = new int[]{-1,-1,-1,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,4,4,4,4};
+
+        System.out.println(s.twoSumDup(nums2,1));
     }
 
-    // below are the brute-force solution written in C++
-    // the author writes: The key idea is to downgrade
-    // the problem to a 2Sum problem eventually.
-    // And the same algorithm can be expand to NSum problem.
+    // Second session
+    // Do the KSum again
+    // first we assume the array is sorted
+    // and we assume we need to get rid of duplicate elements.
+    // thoughts: hardest part is to notice dealing duplicates
+    private void dfs(int[] a, int tar, List<Integer> prevAdded, int k,
+                     int begin, int end, List<List<Integer>> rs){
+        if(k==2){
+            // two sum problem
+            int i = begin, j = end;
+            while(i < j) {
+                // avoid duplicate
+                if(i > begin && a[i] == a[i-1]){
+                    ++i;
+                    continue;
+                }
+                if(j < end && a[j] == a[j+1]){
+                    --j;
+                    continue;
+                }
+                if (a[i] + a[j] > tar) --j;
+                else if (a[i] + a[j] < tar) ++i;
+                else {
+                    List<Integer> l = new ArrayList<>(prevAdded);
+                    l.add(a[i++]); // move two pointer to search next pair
+                    l.add(a[j--]);
+                    rs.add(l);
+                }
+            }
+        }else{
+            for(int i=begin;i<=end-k+1&&a[i]*k<=tar;i++){
+                if(i>begin&&a[i]==a[i-1]) continue;
+                prevAdded.add(a[i]);
+                dfs(a,tar-a[i],prevAdded,k-1,i+1,end,rs);
+                prevAdded.remove(prevAdded.size()-1);
+            }
+        }
+    }
 
-//    vector<vector<int> > fourSum(vector<int> &num, int target) {
-//
-//        vector<vector<int> > res;
-//
-//        if (num.empty())
-//            return res;
-//
-//        std::sort(num.begin(),num.end());
-//
-//        for (int i = 0; i < num.size(); i++) {
-//
-//            int target_3 = target - num[i];
-//
-//            for (int j = i + 1; j < num.size(); j++) {
-//
-//                int target_2 = target_3 - num[j];
-//
-//                int front = j + 1;
-//                int back = num.size() - 1;
-//
-//                while(front < back) {
-//
-//                    int two_sum = num[front] + num[back];
-//
-//                    if (two_sum < target_2) front++;
-//
-//                    else if (two_sum > target_2) back--;
-//
-//                    else {
-//
-//                        vector<int> quadruplet(4, 0);
-//                        quadruplet[0] = num[i];
-//                        quadruplet[1] = num[j];
-//                        quadruplet[2] = num[front];
-//                        quadruplet[3] = num[back];
-//                        res.push_back(quadruplet);
-//
-//                        // Processing the duplicates of number 3
-//                        while (front < back && num[front] == quadruplet[2]) ++front;
-//
-//                        // Processing the duplicates of number 4
-//                        while (front < back && num[back] == quadruplet[3]) --back;
-//
-//                    }
-//                }
-//
-//                // Processing the duplicates of number 2
-//                while(j + 1 < num.size() && num[j + 1] == num[j]) ++j;
-//            }
-//
-//            // Processing the duplicates of number 1
-//            while (i + 1 < num.size() && num[i + 1] == num[i]) ++i;
-//
-//        }
-//
-//        return res;
-//
-//    }
+    public List<List<Integer>> fourSum(int[] nums, int target){
+        List<Integer> tm = new ArrayList<>(2); //4-2
+        List<List<Integer>> rs = new ArrayList<>();
+        Arrays.sort(nums);
+        dfs(nums,target,tm,4,0,nums.length-1,rs);
+        return rs;
+    }
+
+    // given an array, find out all the combinations sum up to target.
+    // no duplicate combinations.
+    public List<List<Integer>> twoSumDup(int[] a, int target){
+        List<List<Integer>> rs = new ArrayList<>();
+        int i = 0,j = a.length-1;
+        while(i<j){
+            if(i > 0 && a[i]==a[i-1]){
+                ++i;
+                continue;
+            }
+            if (j<a.length-1&&a[j]==a[j+1]) {
+                --j;
+                continue;
+            }
+            if(a[i]+a[j]>target) --j;
+            else if(a[i]+a[j]<target) ++i;
+            else{
+                List<Integer> l = new ArrayList<>(2);
+                l.add(a[i++]);
+                l.add(a[j--]);
+                rs.add(l);
+            }
+        }
+        return rs;
+    }
 }

@@ -119,4 +119,33 @@ public class Solution {
         dfs(g,i+1,j,memo);
         return true; // return true because we have found a new island!
     }
+
+
+
+    // Second session
+    // naive solution is just like
+    // #419 battleships in field
+    // DFS each island and change them to '0'
+    public int numIslands2(char[][] grid) {
+        if (grid.length == 0) return 0;
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    dfs2(grid, i, j);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private void dfs2(char[][] g, int r, int c){
+        if(r<0||r>=g.length||c<0||c>g[0].length||g[r][c]=='0') return;
+        g[r][c] = '0';
+        dfs2(g,r+1,c);
+        dfs2(g,r-1,c);
+        dfs2(g,r,c+1);
+        dfs2(g,r,c-1);
+    }
 }

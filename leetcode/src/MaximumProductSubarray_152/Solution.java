@@ -58,6 +58,11 @@ public class Solution {
         return max;
     }
 
+    // This is actually also a DP solution
+    // to "look" more like DP, we can have two array
+    // containing the min so far and max so far.
+    // always notice the status transition.
+
     // a more straightforward solution
 //    public int maxProduct(int[] A) {
 //        if (A.length == 0) {

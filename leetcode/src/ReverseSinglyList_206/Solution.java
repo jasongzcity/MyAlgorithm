@@ -1,11 +1,13 @@
 package ReverseSinglyList_206;
 
+import SinglyList.ListNode;
+
 /**
  * Created by Administrator on 2017/3/10.
  */
 public class Solution
 {
-    public static ListNode reverseList(ListNode head)
+    public ListNode reverseList(ListNode head)
     {
         ListNode next = null;
         ListNode current = head;
@@ -20,44 +22,29 @@ public class Solution
         return pre;
     }
 
-    // for tests
-    static class ListNode
-    {
-        int val;
-        ListNode next;
-        ListNode(int x){this.val = x;}
-        /* Must assure str contains with number character */
-        ListNode(String str)
-        {
-            //ListNode temp = new ListNode(Integer.parseInt(str.substring(0,1)));
-            this.val = Integer.parseInt(str.substring(0,1));
-            ListNode temp = this;
-            for(int i=1;i<str.length();i++)
-            {
-                ListNode next = new ListNode(Integer.parseInt(str.substring(i,i+1)));
-                temp.next = next;
-                temp = temp.next;
-            }
-        }
+    // Second session!
+    // recursive version
+    public ListNode reverseList2(ListNode head){
+        return head==null?null:helper(null, head);
     }
 
-    public static void showListNode(ListNode l)
-    {
-        while(l!=null)
-        {
-            System.out.print(String.valueOf(l.val)+" ");
-            l = l.next;
-        }
-        System.out.println();
+    public ListNode helper(ListNode prev, ListNode cur){
+        ListNode r;
+        if(cur.next!=null) r = helper(cur, cur.next);
+        else r = cur;
+        cur.next = prev;
+        return r;
     }
 
-    public static void main(String[] args)
-    {
-        String s = "0123456789";
-        System.out.println("input:");
-        ListNode l = new ListNode(s);
-        showListNode(l);
-        System.out.println("output:");
-        showListNode(reverseList(l));
+    // iterative solution
+    public ListNode reverseList3(ListNode head){
+        ListNode cur = head, prev = null;
+        while(cur!=null){
+            ListNode backup = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = backup;
+        }
+        return prev;
     }
 }
