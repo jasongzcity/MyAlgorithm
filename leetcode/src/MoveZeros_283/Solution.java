@@ -44,4 +44,15 @@ public class Solution {
         }
         while (slow < n.length) n[slow++] = 0;
     }
+
+    // second session!
+    // notice it's just like sort color...
+    public void moveZeroes3(int[] n){
+        int z = -1, p = 0;
+        while(p<n.length){
+            if(n[p++]!=0)
+                n[++z] = n[p-1];
+        }
+        while(z!=n.length-1) n[++z] = 0;
+    }
 }

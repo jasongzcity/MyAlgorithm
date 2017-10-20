@@ -30,6 +30,57 @@ import java.util.Arrays;
  */
 public class Solution
 {
+    // Second session
+    // brute-force dfs
+    // TLE: [1,2,3] 32..
+    public static int combinationSum4II(int[] nums, int target){
+        Arrays.sort(nums);
+        return dfs(nums,0,target);
+    }
+
+    private static int dfs(int[] a, int cur, int tar){
+        if(cur==tar) return 1;
+        int count = 0;
+        for(int i=0;i<a.length&&cur+a[i]<=tar;i++){
+            count+=dfs(a,cur+a[i],tar);
+        }
+        return count;
+    }
+
+    // memoization DFS
+    // notice that it doesn't care duplicates!
+    public static int combinationSum4IV(int[] nums, int target){
+        int[] memo = new int[target+1];
+        Arrays.sort(nums);
+        Arrays.fill(memo, -1);
+        memo[0] = 1;
+        return dfs(nums,memo,target);
+    }
+
+    private static int dfs(int[] a, int[] memo, int target){
+        if(memo[target]>=0) return memo[target];
+        int count = 0;
+        for(int i=0;i<a.length&&target-a[i]>=0;i++)
+            count+=dfs(a,memo,target-a[i]);
+        return memo[target] = count;
+    }
+
+    // do it in DP
+    public static int combinationSum4III(int[] nums, int target){
+        if(target<=0) return 0;
+        int[] dp = new int[target+1];
+        dp[0] = 1;
+//            for(int j = target;j>=i;j--){
+//                dp[j] += dp[j-i];
+//            }
+        // notice: the code above only find subsets use each element once.
+        for(int i=1;i<=target;i++)
+            for(int j:nums)
+                if(i-j>=0)
+                    dp[i]+=dp[i-j];
+        return dp[target];
+    }
+
     public static int combinationSum4(int[] nums, int target) {
         int[] comb = new int[target+1];
         comb[0] = 1;
@@ -107,6 +158,6 @@ public class Solution
 
     public static void main(String[] args) {
         int[] nums = new int[]{1,2,3};
-        System.out.println(combinationSum4(nums,32));
+        System.out.println(combinationSum4III(nums,32));
     }
 }

@@ -1,7 +1,5 @@
 package MinimumWindowSubstring_76;
 
-import java.util.AbstractCollection;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +21,31 @@ import java.util.Map;
  */
 public class Solution
 {
+    // second session
+    // ACC
+    public static String minWindowII(String s, String t){
+        int minBegin = -1, min = Integer.MAX_VALUE;
+        int[] map = new int[128];
+        for(char c:t.toCharArray()) ++map[c];
+        char[] ss = s.toCharArray();
+        int count = t.length();
+        for(int left=0,right=0;right<ss.length;){
+            if(map[ss[right++]]-->0) --count;
+            if(count==0){
+                while(count==0){
+                    // we now collect all the chars in t, shrink the window
+                    if(map[ss[left++]]++==0) ++count;
+                }
+                if(right-left+1<min){
+                    min = right-left+1;
+                    minBegin = left-1;
+                }
+            }
+        }
+        return min==Integer.MAX_VALUE?"":s.substring(minBegin,minBegin+min);
+    }
+
+
     public static String minWindow(String s, String t)
     {
         int slen = s.length(),tlen = t.length();

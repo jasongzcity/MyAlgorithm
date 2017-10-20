@@ -8,6 +8,35 @@ package MaximumProductSubarray_152;
  * the contiguous subarray [2,3] has the largest product = 6.
  */
 public class Solution {
+
+    // Second session
+    // related to #628(maximum product of 3 numbers)
+    // since brute-force we can achieve O(n^2),
+    // we should try to do better.
+    // consider situation where all elements are positive.
+    // we can simply timing them up and keep track of the maximum.
+    // When negatives is here, we keep track of minimum also.
+    // use two array to make it look "more DP"
+    public int maxProductII(int[] nums){
+        int[] maxs = new int[nums.length], mins = new int[nums.length];
+        maxs[0] = nums[0];
+        mins[0] = nums[0];
+        int max = nums[0];
+        for(int i=1;i<nums.length;i++){
+            // why don't we just maxs[i] = mins[i-1]*nums[i]?
+            // because we could have mins[i-1] = 0
+            if(nums[i]<0){
+                maxs[i] = Math.max(nums[i],mins[i-1]*nums[i]);
+                mins[i] = Math.min(nums[i],maxs[i-1]*nums[i]);
+            }else{
+                maxs[i] = Math.max(nums[i],maxs[i-1]*nums[i]);
+                mins[i] = Math.min(nums[i],mins[i-1]*nums[i]);
+            }
+            max = Math.max(max,maxs[i]);
+        }
+        return max;
+    }
+
     // unaccepted
     // consider [-2,3,-4]
     public int maxProduct(int[] nums) {

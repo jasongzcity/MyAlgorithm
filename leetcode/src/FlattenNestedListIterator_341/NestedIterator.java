@@ -23,74 +23,61 @@ import NestedInteger.NestedInteger;
  * By calling next repeatedly until hasNext returns false,
  * the order of elements returned by next should be: [1,4,6].
  */
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * public interface NestedInteger {
+ *
+ *     // @return true if this NestedInteger holds a single integer,
+ *     rather than a nested list.
+ *     public boolean isInteger();
+ *
+ *     // @return the single integer that this NestedInteger holds,
+ *     if it holds a single integer
+ *     // Return null if this NestedInteger holds a nested list
+ *     public Integer getInteger();
+ *
+ *     // @return the nested list that this NestedInteger holds,
+ *     if it holds a nested list
+ *     // Return null if this NestedInteger holds a single integer
+ *     public List<NestedInteger> getList();
+ * }
+ */
 public class NestedIterator implements Iterator<Integer> {
 
-    /**
-     * // This is the interface that allows for creating nested lists.
-     * // You should not implement it, or speculate about its implementation
-     * public interface NestedInteger {
-     *
-     *     // @return true if this NestedInteger holds a single integer,
-     *     rather than a nested list.
-     *     public boolean isInteger();
-     *
-     *     // @return the single integer that this NestedInteger holds,
-     *     if it holds a single integer
-     *     // Return null if this NestedInteger holds a nested list
-     *     public Integer getInteger();
-     *
-     *     // @return the nested list that this NestedInteger holds,
-     *     if it holds a nested list
-     *     // Return null if this NestedInteger holds a single integer
-     *     public List<NestedInteger> getList();
-     * }
-     */
+    private LinkedList<Iterator<NestedInteger>> st = new LinkedList<>();
+    private NestedInteger nextone;
 
-    // Unaccepted solution.
-    // We have to search for the next integer in the hasNext() method
-//    private LinkedList<List<NestedInteger>> stack = new LinkedList<>();
-//    private LinkedList<Integer> numStack = new LinkedList<>();
-//
-//    public NestedIterator(List<NestedInteger> nestedList) {
-//        if(nestedList.size()==0) return;
-//        NestedInteger i = nestedList.get(0);
-//        stack.add(nestedList);
-//        numStack.add(0);
-//        while(!i.isInteger()){
-//            List<NestedInteger> l = i.getList();
-//            stack.add(l);
-//            numStack.add(0);
-//            i = l.get(0);
+    // second session
+    // First thought: stack
+    public Integer next2(){
+        return nextone.getInteger();
+    }
+
+    public boolean hasNext2(){
+//        while(st.size()!=0&&!st.getFirst().hasNext()){
+//            st.poll();
 //        }
-//    }
-//
-//    @Override
-//    public boolean hasNext() {
-//        return !stack.isEmpty();
-//    }
-//
-//    @Override
-//    public Integer next() {
-//        List<NestedInteger> l = stack.pollLast();
-//        Integer cur = numStack.pollLast();
-//        int rs = l.get(cur++).getInteger();
-//        while(true){
-//            if(cur==l.size()){
-//                if(numStack.isEmpty()) return rs;
-//                cur = numStack.pollLast()+1;
-//                l = stack.pollLast();
-//            }else{
-//                if(l.get(cur).isInteger()) break;
-//                stack.add(l);
-//                numStack.add(cur);
-//                l = l.get(cur).getList();
-//                cur = 0;
-//            }
-//        }
-//        stack.add(l);
-//        numStack.add(cur);
-//        return rs;
-//    }
+//        if(st.size()==0) return false;
+//        NestedInteger ni = st.getFirst().next();
+//        while()
+        // code above will have bugs
+        // the next next nested Integer may be an empty list!
+        // so you must find the next nestedInteger which is an integer.
+        // there are corner cases that the list may be empty
+        while(st.size()>0){
+            if(!st.getFirst().hasNext()) st.poll();
+            else if((nextone = st.getFirst().next()).isInteger()) return true;
+            else st.addFirst(nextone.getList().iterator());
+        }
+        return false;
+    }
+
+    public NestedIterator(List<NestedInteger> nestedList, boolean voidVar){
+        st.addFirst(nestedList.iterator());
+    }
+
+
 
     // optimal solution on leetcode
     NestedInteger nextInt;

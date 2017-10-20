@@ -19,6 +19,38 @@ import java.util.List;
  * [5,6]
  */
 public class Solution {
+    // second session:
+    // first thought: sort it then find those "holes"
+    // do it in O(n) time?
+    // a valuable information we didn't use:
+    // the integer has been given range and it's exactly in the array size
+    // this is not accepted....
+    public List<Integer> findDisappearedNumbers3(int[] nums){
+        for(int i=0;i<nums.length;i++)
+            nums[nums[i]-1] = nums[i];
+
+        List<Integer> l = new ArrayList<>(nums.length);
+        for(int i=0;i<nums.length;i++)
+            if(nums[i]!=i+1)
+                l.add(i+1);
+        return l;
+    }
+
+    // key point is that can we find a way to mark the index has
+    // corresponding number?
+    public List<Integer> findDisappearedNumbers4(int[] nums){
+        for(int i=0;i<nums.length;i++){
+            int tar = (nums[i]<0?-nums[i]:nums[i])-1;
+            if(nums[tar]>0) nums[tar] = -nums[tar];
+        }
+
+        List<Integer> l = new ArrayList<>(nums.length);
+        for(int i=0;i<nums.length;i++)
+            if(nums[i]>0)
+                l.add(i+1);
+        return l;
+    }
+
     // slow and stupid...
     public List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer> l = new ArrayList<>(nums.length);
@@ -46,6 +78,6 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.findDisappearedNumbers(new int[]{4,3,2,7,8,2,3,1}));
+        System.out.println(s.findDisappearedNumbers3(new int[]{4,3,2,7,8,2,3,1}));
     }
 }

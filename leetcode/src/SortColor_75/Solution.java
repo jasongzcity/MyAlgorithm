@@ -74,6 +74,19 @@ public class Solution {
         return false;
     }
 
+    // second session..
+    public static void sortColors2(int[] nums){
+        if(nums.length==0) return;
+        int zeroes = 0, two = nums.length-1;
+        for(int i=0;i<=two;){
+            if(nums[i]==0){
+                swap(nums, i++, zeroes++);
+            }else if(nums[i]==2){
+                swap(nums, i, two--);
+            }else i++;
+        }
+    }
+
     public static void main(String[] args) {
         int[] a = new int[]{0,1,0,0,0,1,0,2,0,2,2,2,2,1,2,0,2,1,0};
         sortColorsOnePass(a);

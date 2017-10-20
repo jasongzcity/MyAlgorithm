@@ -1,5 +1,7 @@
 package MedianOf2SortedArrays_4;
 
+import java.util.concurrent.Semaphore;
+
 /**
  * There are two sorted arrays nums1 and nums2 of size m and n respectively.
  *

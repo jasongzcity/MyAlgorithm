@@ -1,0 +1,12 @@
+        int lo = 0, hi = arr.length - k;
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
+            if (x - arr[mid] > arr[mid+k] - x)
+                lo = mid + 1;
+            else
+                hi = mid;
+        }
+        
+摘抄最佳算法的核心. 
+这里寻找的是subarray的起点. 且故意"多加了1": 以mid为起点的子数组结尾是mid+k-1
+通过不停的shuffle 查找, 可以定位到最佳子数组的起点.

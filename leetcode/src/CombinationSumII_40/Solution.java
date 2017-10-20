@@ -26,6 +26,30 @@ import java.util.List;
  */
 public class Solution
 {
+    // second session
+    public static List<List<Integer>> combinationSum2II(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> rs = new ArrayList<>();
+        dfs(candidates,0,0,target,new ArrayList<>(),rs);
+        return rs;
+    }
+
+    private static void dfs(int[] a, int begin, int cursum, int tar, List<Integer> l,
+                                List<List<Integer>> rs){
+        if(cursum==tar){
+            rs.add(new ArrayList<>(l));
+            return;
+        }
+        for(int i=begin;i<a.length&&cursum+a[i]<=tar;i++){
+            if(i==begin||(a[i]!=a[i-1])){
+                l.add(a[i]);
+                dfs(a,i+1,cursum+a[i],tar,l,rs);
+                l.remove(l.size()-1);
+            }
+        }
+    }
+
+
     public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         List<List<Integer>> rs = new ArrayList<>();

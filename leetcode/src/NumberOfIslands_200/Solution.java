@@ -1,7 +1,5 @@
 package NumberOfIslands_200;
 
-import java.util.Map;
-
 /**
  * Given a 2d grid map of '1's (land) and '0's (water),
  * count the number of islands. An island is surrounded
@@ -23,9 +21,36 @@ import java.util.Map;
  * Answer: 3
  */
 public class Solution {
+
+    // second session
+    // thought: it's like keep finding adjacent lands.
+    // notice its related questions, a very good example for basic dfs problems.
+    public static int numIslandsII(char[][] g){
+        if(g.length==0) return 0;
+        int count = 0;
+        for(int i=0;i<g.length;i++){
+            for(int j=0;j<g[0].length;j++){
+                if(g[i][j]=='1'){
+                    count++;
+                    dfsII(g,i,j);
+                }
+            }
+        }
+        return count;
+    }
+
+    private static void dfsII(char[][] g,int i,int j){
+        if(i<0||j<0||i>=g.length||j>=g[0].length||g[i][j]=='0') return; // base
+        g[i][j] = '0';
+        dfsII(g,i+1,j);
+        dfsII(g,i-1,j);
+        dfsII(g,i,j-1);
+        dfsII(g,i,j+1);
+    }
+
     // its not DP, its just drawing a map....
     // Notice! This is an unaccepted solution!!
-    // most voted solution are using DFS
+    // most voted solutions are using DFS
     public static int numIslands(char[][] g) {
         if(g.length==0) return 0;
         int rows = g.length,cols = g[0].length,islands = 0,islandsNo = 1;

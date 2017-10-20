@@ -1,4 +1,4 @@
-package CombinationIII_216;
+package CombinationSumIII_216;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,28 @@ import java.util.List;
  */
 public class Solution
 {
+    // Second Session
+    public static List<List<Integer>> combinationSum3II(int k, int n){
+        List<List<Integer>> rs = new ArrayList<>();
+        dfs(1,0,n,new ArrayList<>(k),rs,k);
+        return rs;
+    }
+
+    private static void dfs(int begin, int cur, int tar, List<Integer> l,
+                            List<List<Integer>> rs, int k){
+        if(l.size()==k){
+            if(cur==tar){
+                rs.add(new ArrayList<>(l));
+            }
+            return;
+        }
+        for(int i=begin;i<=9&&cur+i<=tar;i++){
+            l.add(i);
+            dfs(i+1,cur+i,tar,l,rs,k);
+            l.remove(l.size()-1);
+        }
+    }
+
     public static List<List<Integer>> combinationSum3(int k, int n) {
         List<Integer> list = new ArrayList<>();
         List<List<Integer>> rs = new ArrayList<>();
