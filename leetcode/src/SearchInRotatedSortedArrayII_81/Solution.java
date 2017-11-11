@@ -10,6 +10,45 @@ package SearchInRotatedSortedArrayII_81;
  */
 public class Solution
 {
+    // Second session
+    // Compare with #32, say we got an input [3,1,3,3,3,3,3,3,3]
+    // when you have a[lo] == a[hi] == a[mid]
+    // we can't know which side is "sorted" (it can also be
+    // [3,3,3,3,3,1,3])
+    // so we skip it..
+    // counter example for algorithm from#32 can't apply in this
+    // situation: [3,4,3,3,3,3,3,3] you may choose to go into the "larger half"
+    // of the array
+    public boolean searchII(int[] nums, int target){
+        int lo = 0, hi = nums.length-1;
+        while(lo<=hi){
+            int mid = (lo+hi)/2;
+            if(nums[mid]==target) return true;
+            if(nums[mid]==nums[lo]&&nums[mid]==nums[hi]){
+                lo++;
+                hi--;
+            }
+            // when we have skipped the duplicates,
+            // we can do it just like #32
+            else if(nums[mid]>=nums[lo]){
+                // now [lo, mid] is really sorted.
+                // notice that target >= nums[lo]
+                // is still necessary,
+                // it could be target < nums[mid]
+                // but locate at the right of the mid.
+                if(nums[mid]>target&&nums[lo]<=target) hi = mid-1;
+                else lo = mid+1;
+            }else{
+                // again, target<=nums[hi] is necessary because you
+                // can still have the target locate at the right of
+                // the mid while target is larger than nums[mid]
+                if(nums[hi]>=target&&nums[mid]<target) lo = mid+1;
+                else hi = mid-1;
+            }
+        }
+        return false;
+    }
+
     // O(lgn)
     public static boolean search(int[] nums, int target)
     {

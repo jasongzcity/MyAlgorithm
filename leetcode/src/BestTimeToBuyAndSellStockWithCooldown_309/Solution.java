@@ -19,9 +19,31 @@ package BestTimeToBuyAndSellStockWithCooldown_309;
  * transactions = [buy, sell, cooldown, buy, sell]
  */
 public class Solution {
+
+    // Second session, do it in O(1) space
+    // accepted..
+    public int maxProfit(int[] p){
+        if(p.length==0) return 0;
+        int sell = 0, preSell = 0, buy = -p[0];
+        for(int i=1;i<p.length;i++){
+            int tm = sell;
+            sell = Math.max(sell, p[i]+buy);
+            buy = Math.max(buy, preSell-p[i] /* sell it the day before
+                                                yesterday and selling it now */
+            );
+            preSell = tm;
+        }
+        return sell;
+    }
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        System.out.println(s.maxProfit(new int[]{1,2,3,1,3}));
+    }
+
     // naive O(n) space dp solution
     // we can improve it to O(1) space
-    public int maxProfit(int[] prices) {
+    public int maxProfit2(int[] prices) {
         if(prices.length<2) return 0;
         int[] buy = new int[prices.length], sell = new int[prices.length];
         buy[0] = -prices[0];

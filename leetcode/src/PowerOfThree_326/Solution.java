@@ -7,6 +7,15 @@ package PowerOfThree_326;
  * Could you do it without using any loop / recursion?
  */
 public class Solution {
+
+    // second session
+    // I will skip the iterative solution
+    // another maths trick to solve this kind of "power"
+    // questions
+    public boolean isPowerOfThreeII(int n){
+        return n>0&&((long)Math.pow(3,30)/n)==0;
+    }
+
     // iterative solution
     public boolean isPowerOfThree(int n) {
         if(n<=0) return false;

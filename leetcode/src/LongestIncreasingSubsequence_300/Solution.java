@@ -1,5 +1,7 @@
 package LongestIncreasingSubsequence_300;
 
+import java.util.Arrays;
+
 /**
  * Given an unsorted array of integers,
  * find the length of longest increasing subsequence.
@@ -15,6 +17,28 @@ package LongestIncreasingSubsequence_300;
  * Follow up: Could you improve it to O(n log n) time complexity?
  */
 public class Solution {
+
+    // Second session: do it in O(n^2) and O(nlogn)
+
+    // This is O(n^2) DP solution
+    public int lengthOfLISII(int[] nums){
+        if(nums.length==0) return 0;
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp,1);
+        int maxlen = 1;
+        for(int i=1;i<nums.length;i++){
+            for (int j = 0; j < i; j++) {
+                if(nums[j]<nums[i]){
+                    if(dp[j]+1>dp[i]){
+                        dp[i] = dp[j]+1;
+                        maxlen = Math.max(maxlen,dp[i]);
+                    }
+                }
+            }
+        }
+        return maxlen;
+    }
+
     // O(n^2) intuitive solution, accepted.
     // I have noticed some overlapped subproblems in this problem.
     public int lengthOfLIS2(int[] nums) {
@@ -52,6 +76,7 @@ public class Solution {
             if(a[i]>stack[p]) stack[++p] = a[i]; // push to the stack
             else{
                 // use binary search to find a position to add a[i] in the stack
+                // notice that it puts the value at the smallest possible index
                 int lo = 0,hi = p+1; // hi exclusive
                 while(lo<hi){
                     int mid = (lo+hi)/2;

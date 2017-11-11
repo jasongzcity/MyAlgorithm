@@ -30,6 +30,22 @@ package BattleshipsInABoard_419;
  * and without modifying the value of the board?
  */
 public class Solution {
+
+    // Second session
+    public int countBattleshipsII(char[][] m){
+        if(m.length==0) return 0;
+        int count = 0;
+        for(int i=0;i<m.length;i++){
+            for(int j=0;j<m[0].length;j++){
+                if(m[i][j]=='X'){
+                    if((i>0&&m[i-1][j]=='X')||(j>0&&m[i][j-1]=='X')) continue;
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+
     // naive dfs solution
     public int countBattleships(char[][] board) {
         if(board.length==0) return 0;

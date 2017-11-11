@@ -7,15 +7,65 @@ package RotateList_61;
  * Given 1->2->3->4->5->NULL and k = 2,
  * return 4->5->1->2->3->NULL.
  */
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
+
+import SinglyList.ListNode;
+
 public class Solution {
+
+    private ListNode tail = null;
+
+    // Second session
+    public ListNode rotateRightII(ListNode head, int k){
+        // first we assume 0<=k
+        // if k larger than the length of list,
+        // we rotate the number of k%length
+        int len = countAndTail(head);
+        if(len==0) return head;
+        k%=len;
+        if(k==0) return head;
+        ListNode dummy = new ListNode(-1), p = dummy;
+        dummy.next = head;
+        int counter = len-k;
+        while(counter>0){
+            p = p.next;
+            --counter;
+        }
+        // reconnect
+        dummy.next = p.next;
+        p.next = null;
+        tail.next = head;
+        return dummy.next;
+    }
+
+    private int countAndTail(ListNode head){
+        ListNode cur = head;
+        int count = 0;
+        while(cur!=null){
+            tail = cur;
+            cur = cur.next;
+            ++count;
+        }
+        return count;
+    }
+
+    // better solution
+    // make it a ring, and count and detach.
+    public ListNode rotateRightII2(ListNode head, int k){
+        if(head==null) return head;
+        ListNode tm = head;
+        int count = 1;
+        while(tm.next!=null){
+            tm = tm.next;
+            ++count;
+        }
+        tm.next = head;
+        for(int i=0;i<(count-k%count);i++) tm = tm.next;
+
+        head = tm.next;
+        tm.next = null;
+        return head;
+    }
+
     public static ListNode rotateRight(ListNode head, int k) {
         if(head==null) return head;
         ListNode dummy = new ListNode(0);
@@ -52,35 +102,5 @@ public class Solution {
         ListNode newHead = tail.next;
         tail.next = null;
         return newHead;
-    }
-
-    static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x){this.val = x;}
-        /* Must assure str contains with number character */
-        ListNode(String str) {
-            //ListNode temp = new ListNode(Integer.parseInt(str.substring(0,1)));
-            this.val = Integer.parseInt(str.substring(0,1));
-            ListNode temp = this;
-            for(int i=1;i<str.length();i++) {
-                ListNode next = new ListNode(Integer.parseInt(str.substring(i,i+1)));
-                temp.next = next;
-                temp = temp.next;
-            }
-        }
-    }
-
-    public static void showListNode(ListNode l){
-        while(l!=null){
-            System.out.print(String.valueOf(l.val)+" ");
-            l = l.next;
-        }
-        System.out.println();
-    }
-
-    public static void main(String[] args) {
-        ListNode l = new ListNode("12");
-        showListNode(rotateRight2(l,1));
     }
 }

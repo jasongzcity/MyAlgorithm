@@ -11,6 +11,21 @@ package BestTimeToBuyNSellII_122;
  * (ie, you must sell the stock before you buy again).
  */
 public class Solution {
+
+    // Second session
+    // Though there are faster ways, I want to
+    // find an once-and-for-all solution for this type of questions.
+    public int maxProfit(int[] p){
+        if(p.length<2) return 0;
+        int[] buy = new int[p.length], sell = new int[p.length];
+        buy[0] = -p[0];
+        for(int i=1;i<p.length;i++){
+            sell[i] = Math.max(sell[i-1], p[i]+buy[i-1]);
+            buy[i] = Math.max(buy[i-1], sell[i-1]-p[i]);
+        }
+        return sell[sell.length-1];
+    }
+
     public static int maxProfit2(int[] prices) {
         int profit = 0,minValue = Integer.MAX_VALUE;
         boolean buyIn = false;
@@ -32,7 +47,7 @@ public class Solution {
     }
 
     // better solution
-    public static int maxProfit(int[] prices){
+    public static int maxProfit3(int[] prices){
         int profit = 0;
         for(int i=1;i<prices.length;i++)
             if(prices[i]>prices[i-1])

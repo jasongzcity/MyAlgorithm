@@ -18,6 +18,9 @@ package SearchA2DMatrix_74;
  */
 public class Solution {
 
+    // Second session:
+    // notice the relation between row and col and the
+    // total standing of the element in the whole matrix.
     public static boolean searchMatrix(int[][] matrix, int target) {
         if(matrix.length==0) return false;
         int rows = matrix.length,cols = matrix[0].length;

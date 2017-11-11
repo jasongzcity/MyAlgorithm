@@ -1,6 +1,7 @@
 package PascalTriangle_118;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,6 +17,26 @@ import java.util.List;
  * ]
  */
 public class Solution {
+
+    // Second session
+    // optimized code
+    public static List<List<Integer>> generateII(int n){
+        if(n<1) return Collections.emptyList();
+        List<List<Integer>> rs = new ArrayList<>();
+        List<Integer> l = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            int backup = 1, prev = 1;
+            for (int j = 0; j + 1 < l.size(); j++) {
+                backup = l.get(j+1);
+                l.set(j+1, prev+backup);
+                prev = backup;
+            }
+            l.add(1);
+            rs.add(new ArrayList<>(l));
+        }
+        return rs;
+    }
+
     public static List<List<Integer>> generate(int n) {
         if(n==0) return new ArrayList<>();
         List<List<Integer>> rs = new ArrayList<>(n);

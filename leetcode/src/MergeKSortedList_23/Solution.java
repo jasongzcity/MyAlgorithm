@@ -1,5 +1,7 @@
 package MergeKSortedList_23;
 
+import SinglyList.ListNode;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -9,6 +11,39 @@ import java.util.PriorityQueue;
  */
 public class Solution
 {
+    // Second session
+    // using heap to solve this problem would be trivial.
+    // that would be a O(Nlogk) algorithm
+    // divide and conquer
+    public static ListNode mergeKListsII(ListNode[] lists){
+        if(lists.length==0) return null;
+        divideAndMerge(lists, 0, lists.length-1);
+        return lists[0];
+    }
+
+    public static void divideAndMerge(ListNode[] l, int lo, int hi){
+        if(lo==hi) return;
+        int mid = (lo+hi)/2;
+        divideAndMerge(l, lo, mid);
+        divideAndMerge(l, mid+1, hi);
+        merge(l, lo, mid+1);
+    }
+
+    public static void merge(ListNode[] l, int left, int right){
+        ListNode dummy = new ListNode(-1), a = l[left], b = l[right], back = dummy;
+        while(a!=null||b!=null){
+            if(b==null||(a!=null&&a.val<=b.val)){
+                dummy = dummy.next = a;
+                a = a.next;
+            } else {
+                dummy = dummy.next = b;
+                b = b.next;
+            }
+        }
+        l[left] = back.next;
+    }
+
+
     public static ListNode mergeKLists(ListNode[] lists)
     {
         ListNode head = new ListNode(Integer.MIN_VALUE);
@@ -37,36 +72,5 @@ public class Solution
             tail = tail.next;
         }
         return head.next;
-    }
-
-    // for tests
-    static class ListNode
-    {
-        int val;
-        ListNode next;
-        ListNode(int x){this.val = x;}
-        /* Must assure str contains with number character */
-        ListNode(String str)
-        {
-            //ListNode temp = new ListNode(Integer.parseInt(str.substring(0,1)));
-            this.val = Integer.parseInt(str.substring(0,1));
-            ListNode temp = this;
-            for(int i=1;i<str.length();i++)
-            {
-                ListNode next = new ListNode(Integer.parseInt(str.substring(i,i+1)));
-                temp.next = next;
-                temp = temp.next;
-            }
-        }
-    }
-
-    public static void showListNode(ListNode l)
-    {
-        while(l!=null)
-        {
-            System.out.print(String.valueOf(l.val)+" ");
-            l = l.next;
-        }
-        System.out.println();
     }
 }

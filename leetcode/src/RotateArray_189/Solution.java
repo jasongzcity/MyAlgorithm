@@ -17,6 +17,19 @@ import java.util.Arrays;
  * Related problem: Reverse Words in a String II
  */
 public class Solution {
+
+    // second session
+    // just like reverse words..
+    // in-place solution
+    public void rotateII(int[] nums, int k){
+        if(nums.length<2) return;
+        k%=nums.length;
+        if(k==0) return;
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k,nums.length-1);
+    }
+
     // O(n) space 2-pass naive solution
     public void rotate(int[] nums, int k) {
         k %= nums.length;

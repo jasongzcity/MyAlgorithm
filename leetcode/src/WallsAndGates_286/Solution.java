@@ -23,6 +23,31 @@ package WallsAndGates_286;
  * 0  -1   3   4
  */
 public class Solution {
+
+    // second session.
+    // first thought:
+    // we do DFS begin from a gate, get around the walls and minimizing the distance
+    // from the gate
+    public void wallsAndGates2(int[][] rooms){
+        if(rooms.length==0) return;
+        for(int i=0;i<rooms.length;i++){
+            for(int j=0;j<rooms[0].length;j++){
+                if(rooms[i][j]==0)
+                    dfs2(rooms,i,j,0);
+            }
+        }
+    }
+
+    private void dfs2(int[][] r, int i, int j, int dis){
+        if(i>=0&&j>=0&&i<r.length&&j<r[0].length&&r[i][j]>=dis){
+            r[i][j] = dis;
+            dfs2(r,i-1,j,dis+1);
+            dfs2(r,i+1,j,dis+1);
+            dfs2(r,i,j-1,dis+1);
+            dfs2(r,i,j+1,dis+1);
+        }
+    }
+
     public void wallsAndGates(int[][] rooms) {
         for(int i=0;i<rooms.length;i++)
             for(int j=0;j<rooms[0].length;j++)

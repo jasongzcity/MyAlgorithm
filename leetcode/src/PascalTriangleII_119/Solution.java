@@ -12,6 +12,12 @@ import java.util.List;
  * Could you optimize your algorithm to use only O(k) extra space?
  */
 public class Solution {
+
+    // Second session
+    // actually I didn't do it very well in session one because I have use two list.
+    // a better way is like the second session code I have implemented in #118
+    // It's totally the same and I will not write it again here.
+
     public static List<Integer> getRow(int r) {
         List<Integer> src = new ArrayList<>(r),tar = new ArrayList<>(r),tmp = tar;
         src.add(1);

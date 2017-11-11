@@ -10,6 +10,21 @@ package MinimumInRotatedSortedArr_153;
  */
 public class Solution
 {
+    // Second session
+    // notice this is not accepted.
+    public static int findMinII(int[] nums){
+        int lo = 0, hi = nums.length;
+        while(lo<hi){
+            int mid = (lo+hi)/2;
+            if(nums[mid]<nums[lo]) hi = mid;// notice test case
+            // [8,1,2] the hi may fall to 0 so
+            // compare lo and lo+1;
+            // not as straight forward as the hi one.
+            else lo = mid+1;
+        }
+        return nums[lo];
+    }
+
     public static int findMin(int[] nums)
     {
         int lo = 0,hi = nums.length-1;
@@ -43,11 +58,11 @@ public class Solution
     public static void main(String[] args)
     {
         int[] nums = new int[]{7,8,9,10,11,12,13,1};
-        System.out.println(findMedium(nums));
-        int[] nums1 = new int[]{1};
-        System.out.println(findMedium(nums1));
+        System.out.println(findMin(nums));
+        int[] nums1 = new int[]{};
+        System.out.println(findMin(nums1));
         int[] nums2 = new int[]{8,1,2};
-        System.out.println(findMedium(nums2));
+        System.out.println(findMin(nums2));
     }
     // hard: find minimum when allow duplicates.
 }

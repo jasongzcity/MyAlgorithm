@@ -11,8 +11,30 @@ package SearchInRotatedSortedArr_33;
  *
  * You may assume no duplicate exists in the array.
  */
-public class Solution
-{
+public class Solution {
+
+    // Second session
+    // first thought would be finding the pivot.
+    // however, we can also try to make other conditions in the
+    // binary search
+    public static int searchII(int[] nums, int target){
+        int lo = 0, hi = nums.length-1;
+        while(lo<=hi){
+            int mid = (hi-lo)/2+lo;
+            if(nums[mid]==target) return mid;
+            if(nums[mid]>nums[lo]){
+                // [lo, mid] sorted
+                if(target<nums[mid]&&target>=nums[lo]) hi = mid-1;
+                else lo = mid+1;
+            }else{
+                // [mid, hi] sorted
+                if(target>nums[mid]&&target<=nums[hi]) lo = mid+1;
+                else hi = mid-1;
+            }
+        }
+        return -1;
+    }
+
     public static int search(int[] nums, int target)
     {
         int index = 0;

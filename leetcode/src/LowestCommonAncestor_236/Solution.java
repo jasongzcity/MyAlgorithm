@@ -26,6 +26,20 @@ import java.util.LinkedList;
  */
 public class Solution {
 
+    // Second session
+    public TreeNode lowestCommonAncestorII(TreeNode root, TreeNode p, TreeNode q){
+        return find(root,p,q);
+    }
+
+    private TreeNode find(TreeNode root, TreeNode p, TreeNode q){
+        if(root==null) return null;
+        if(root==p||root==q) return root;
+        TreeNode left = find(root.left,p,q), right = find(root.right,p,q);
+        if(left!=null&&right!=null) return root;
+        if(left==right) return null; // both child not found
+        return left==null?right:left;
+    }
+
     // iterative solution
     // may look ugly but it got accepted :-))))
     public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {

@@ -24,6 +24,13 @@ import java.util.Stack;
  * Note: Recursive solution is trivial, could you do it iteratively?
  */
 public class Solution {
+
+    // great conclusion!
+    // https://discuss.leetcode.com
+    // /topic/30632/preorder-inorder-and-postorder-iteratively-summarization
+    // to be more specific, it's just you add mid->right->left
+    // to the list, and reverse the whole list.
+
     public static List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> rs = new ArrayList<>();
         Stack<TreeNode> s = new Stack<>();

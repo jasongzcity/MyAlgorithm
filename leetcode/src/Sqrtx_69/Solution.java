@@ -5,7 +5,21 @@ package Sqrtx_69;
  * Compute and return the square root of x.
  */
 public class Solution {
-    public static int mySqrt(int x) {
+
+    // second session.
+    public static int mySqrt(int x){
+        if(x<2) return x;
+        int lo = 2, hi = x;
+        while(lo<hi){
+            int mid = (hi-lo)/2 + lo; // avoid overflow
+            int sqr = mid*mid;
+            if(sqr/mid!=mid||sqr>x) hi = mid;
+            else lo = mid+1;
+        }
+        return lo-1;
+    }
+
+    public static int mySqrt3(int x) {
         if (x < 2) return x; // 0 and 1
         int hi = x / 2, lo = 2;
         while (hi >= lo) {
@@ -20,7 +34,6 @@ public class Solution {
 
     public static void main(String[] args) {
         System.out.println(mySqrt(2147395599));
-        System.out.println(mySqrt2(9));
     }
 
     public static int mySqrt2(int x) {

@@ -1,6 +1,7 @@
 package SpiralMatrix_54;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,6 +19,31 @@ import java.util.List;
  * You should return [1,2,3,6,9,8,7,4,5].
  */
 public class Solution {
+
+    // "layer" solution
+    public static List<Integer> spiralOrderII(int[][] m){
+        if(m.length==0) return Collections.emptyList();
+        List<Integer> l = new ArrayList<>(m.length*m[0].length);
+        int top = 0, down = m.length-1, left = 0, right = m[0].length-1;
+        while(top<=down&&left<=right){
+            for (int i = left; i <= right; i++) l.add(m[top][i]);
+            for (int i = top+1; i <= down; i++) l.add(m[i][right]);
+            // notice that you should check if
+            // top==down or left == right
+            // if so, the operation below will result in "revisit"
+            if(left<right&&top<down){
+                for (int i = right-1; i >= left; i--) l.add(m[down][i]);
+                for (int i = down-1; i >= top; i--) l.add(m[i][left]);
+            }
+            // "shrinking the bound"
+            top++;
+            down--;
+            left++;
+            right--;
+        }
+        return l;
+    }
+
     public static List<Integer> spiralOrder(int[][] matrix) {
         if(matrix.length==0||matrix[0].length==0) return new ArrayList<>();
         int rowLen = matrix[0].length,columnLen = matrix.length-1;

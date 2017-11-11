@@ -5,6 +5,61 @@ package RegExpMatching_10;
  */
 public class Solution
 {
+    // Second session
+    // we add another condition into consideration:
+    // '?' no or one
+    public static boolean isMatchII(String s, String p){
+        // dp[i][j] = true means s[:i] matches with p[:j]
+        // transition equation:
+        // dp[i][j] =
+        // if character or . in p:
+        // dp[i-1][j-1]
+        // if ? :
+        // dp[i-1][j-1] (one character) or dp[i][j-2] (skip a?)
+        // if * :
+        // dp[i-1][j-1] (one character)(aa matches a*)
+        // or dp[i][j-2] (skip a*, b matches ba*)
+        // or dp[i-1][j] (multiple character, aaab matches a*)
+        boolean[][] dp = new boolean[s.length()+1][p.length()+1];
+        char[] sa = s.toCharArray(), pa = p.toCharArray();
+        dp[0][0] = true;
+        // preprocess:
+        // dp[0][0] should be true
+        // dp[any i][0] should be false
+        // dp[0][any i] should be false, unless p[i] is * or ?
+        for(int i=0;i<p.length();i++) {
+            if (pa[i] == '*' || pa[i] == '?') {
+                // we assume there is no '*' or '?' at the first character
+                dp[0][i+1] = dp[0][i-1];
+            }
+        }
+        
+        for(int i = 0; i < sa.length; i++){
+            for (int j = 0; j < pa.length; j++) {
+                if (sa[i]==pa[j]||pa[j]=='.')
+                    dp[i+1][j+1] = dp[i][j];
+                else if(pa[j]=='?')
+                    dp[i+1][j+1] = dp[i+1][j]||dp[i+1][j-1];
+                else if(pa[j]=='*'){
+                    // now consider s = "aa", p = "a*"
+                    // notice that "aa" doesn't match with "a", so how
+                    // do we pass this situation?
+                    dp[i+1][j+1] = dp[i+1][j-1]||  /* skip */
+                                   dp[i+1][j]||    /* one */
+                                    ((sa[i]==pa[j-1]||pa[j-1]=='.') && dp[i][j+1]);
+                                    // the last line can cover
+                                    // "aa" - "a*" and "aa" - ".*" situations
+                                    // the last line situation is the trickiest part, think it clearly
+                }
+            }
+        }
+        return dp[s.length()][p.length()];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isMatchII("","b?"));
+    }
+
     /* This DP solution is inspired by the most voted solution on leetcode */
     public static boolean isMatch(String s, String p)
     {
@@ -51,6 +106,4 @@ public class Solution
         }
         return matchTable[strlen][patternlen];
     }
-
-    public static void main(String[] args) { System.out.println(isMatch("abcd",".*")); }
  }

@@ -9,6 +9,33 @@ package RotateImage_48;
  * Could you do this in-place?
  */
 public class Solution {
+
+    // second session
+    public static void rotateII(int[][] matrix){
+        int len = matrix.length, left = 0, right = len-1, row = 0;
+        if(len==0) return;
+        while(left<right){
+            for(int c = left;c<right;c++){
+                rotateAtII(matrix, row, c);
+            }
+            row++;
+            left++;
+            right--;
+        }
+    }
+
+    private static void rotateAtII(int[][] m, int row, int col){
+        int backup = m[row][col], maxInd = m.length-1;
+//        m[row][col] = m[col][maxInd-row];
+//        m[col][maxInd-row] = m[maxInd-row][maxInd-col];
+//        m[maxInd-row][maxInd-col] = m[maxInd-col][row];
+//        m[maxInd-col][row] = backup;
+        m[row][col] = m[maxInd-col][row];
+        m[maxInd-col][row] = m[maxInd-row][maxInd-col];
+        m[maxInd-row][maxInd-col] = m[col][maxInd-row];
+        m[col][maxInd-row] = backup;
+    }
+
     // In-place
     public static void rotate(int[][] matrix) {
         int len = matrix.length;
