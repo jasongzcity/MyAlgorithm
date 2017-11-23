@@ -17,6 +17,35 @@ package DecodeWays_91;
  * The number of ways decoding "12" is 2.
  */
 public class Solution {
+
+    // Second session
+    // bellman equation:
+    // let dp[i] be the number of ways of coding
+    // in s[0:i]
+    // so dp[i] = dp[i-1]
+    //            + dp[i-2] if( s(i-2,i) valid )
+    public static int numDecodingsII(String s){
+        int n = s.length();
+        // assume input all digits..
+        // work against corner cases..
+        if(n==0||s.charAt(0)=='0') return 0;
+        if(n==1) return 1;
+        int[] dp = new int[n+1];
+        dp[1] = dp[0] = 1;
+        char[] ss = s.toCharArray();
+        for(int i=1;i<n;i++){
+            if(ss[i]!='0') dp[i+1] += dp[i];
+            int tm = Integer.parseInt(s.substring(i-1,i+1));
+            if(tm>=10&&tm<=26) dp[i+1] += dp[i-1];
+        }
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        System.out.println(numDecodingsII("10"));
+    }
+
+
     public static int numDecodings(String s) {
         int len = s.length();
         if(len==0||s.charAt(0)-'0'==0) return 0;
@@ -38,13 +67,6 @@ public class Solution {
             else dp[i] = dp[i-1]+dp[i-2];
         }
         return dp[len-1];
-    }
-
-    public static void main(String[] args) {
-        System.out.println(numDecodings("12"));
-        System.out.println(numDecodings("72"));
-        System.out.println(numDecodings("723"));
-        System.out.println(numDecodings("12222222"));
     }
 
     // most voted leetcode solution

@@ -1,0 +1,2 @@
+简单数学规律:
+a mod d = sum(a1 mod d + a2 mod d+ ... +  an mod d) mod d, where a1+...+an = a

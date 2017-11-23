@@ -4,6 +4,7 @@ package OneEditDistance_161;
  * Given two strings S and T, determine if they are both one edit distance apart.
  */
 public class Solution {
+
     public boolean isOneEditDistance(String s, String t){
         int slen = s.length(),tlen = t.length();
         if(slen-tlen>1||slen-tlen<-1) return false;

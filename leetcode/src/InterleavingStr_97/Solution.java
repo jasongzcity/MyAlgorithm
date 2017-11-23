@@ -12,6 +12,55 @@ package InterleavingStr_97;
  * When s3 = "aadbbbaccc", return false.
  */
 public class Solution {
+
+    // Second session
+    // Imma do bottom-up and top-down DP
+    // Bottom-up
+    // dp[i, j] represents whether the s1[0:i] and s2[0:j]
+    // forms the correct interleaving
+    // so dp[i,j] should be
+    // s[i+j-1] == s1[i] && dp[i-1, j] || s[i+j-1] == s2[j] && dp[i, j-1]
+    // boundary cases: dp[0, j] = s[j]==s2[j] && dp[0,j-1]
+    // same with dp[i,0]
+    public static boolean isInterleaveII(String s1, String s2, String s3){
+        if(s3.length()!=s1.length()+s2.length()) return false;
+        char[] a = s1.toCharArray(), b = s2.toCharArray(), c = s3.toCharArray();
+        boolean[][] dp = new boolean[a.length+1][b.length+1];
+        dp[0][0] = true;
+        for (int i = 0; i < a.length; i++) dp[i+1][0] = dp[i][0] && c[i] == a[i];
+        for (int i = 0; i < b.length; i++) dp[0][i+1] = dp[0][i] && c[i] == b[i];
+
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                dp[i+1][j+1] = (c[i+j+1] == a[i] && dp[i][j+1]) ||
+                        (c[i+j+1] == b[j] && dp[i+1][j]);
+            }
+        }
+        return dp[a.length][b.length];
+    }
+
+    // top-down DP
+    // using a matrix to memoize whether s1[0:i] and s2[0:j] forms a valid
+    // interleaving
+    public static boolean isInterleaveII2(String s1, String s2, String s3){
+        if(s3.length()!=s1.length()+s2.length()) return false;
+        char[] a = s1.toCharArray(), b = s2.toCharArray(), c = s3.toCharArray();
+        // set up boundary for memo
+        int[][] memo = new int[a.length+1][b.length+1];
+        memo[0][0] = 1;
+        for(int i=0;i<a.length;i++) memo[i+1][0] = (memo[i][0] == 1 && a[i]==c[i]) ? 1 : 2;
+        for(int i=0;i<b.length;i++) memo[0][i+1] = (memo[0][i] == 1 && b[i]==c[i]) ? 1 : 2;
+        return dfs(a, b, c, a.length-1, b.length-1 , memo);
+    }
+
+    private static boolean dfs(char[] a, char[] b, char[] c,
+                               int i, int j, int[][] memo){
+        if(memo[i+1][j+1] == 0)
+            memo[i+1][j+1] = (c[i+j+1] == a[i] && dfs(a,b,c,i-1,j,memo)) ||
+                        (c[i+j+1] == b[j] && dfs(a,b,c,i,j-1,memo)) ? 1 : 2;
+        return memo[i+1][j+1] == 1;
+    }
+
     public static boolean isInterleave(String s1, String s2, String s3) {
         int l1 = s1.length(), l2 = s2.length(),l3 = s3.length();
         if(l3!=l1+l2) return false;

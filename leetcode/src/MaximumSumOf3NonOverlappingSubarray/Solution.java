@@ -27,7 +27,43 @@ import java.util.Arrays;
  * k will be between 1 and floor(nums.length / 3).
  */
 public class Solution {
-    public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
+
+    // redo optimal solution
+    public int[] maxSumOfThreeSubarrays(int[] a, int k){
+        int n = a.length;
+        int[] rs = new int[3], leftEnd = new int[n],
+                rightBegin = new int[n], sum = new int[n+1];
+        for(int i=0;i<a.length;i++) sum[i+1] = sum[i]+a[i];
+        // use leftEnd records down the current maximum sum on the left hand side
+        leftEnd[k-1] = k-1;
+        for(int i=k,tm=sum[k];i<a.length;i++){
+            if(sum[i+1]-sum[i-k+1]>tm){
+                leftEnd[i] = i;
+                tm = sum[i+1]-sum[i-k+1];
+            }else leftEnd[i] = leftEnd[i-1];
+        }
+        rightBegin[n-k] = n-k;
+        for(int i=n-k-1,tm=sum[n]-sum[n-k];i>=0;i--){
+            if(sum[i+k]-sum[i]>=tm){
+                rightBegin[i] = i;
+                tm = sum[i+k]-sum[i];
+            }else rightBegin[i] = rightBegin[i+1];
+        }
+        // scan to find the middle point
+        for(int i=k,tm=0;i+2*k<=n;i++){
+            int l = leftEnd[i-1], r = rightBegin[i+k];
+            if(sum[l+1]-sum[l+1-k]+sum[r+k]-sum[r]+sum[i+k]-sum[i]>tm){
+                rs[0] = l-k+1;
+                rs[1] = i;
+                rs[2] = r;
+                tm = sum[l+1]-sum[l+1-k]+sum[r+k]-sum[r]+sum[i+k]-sum[i];
+            }
+        }
+        return rs;
+    }
+
+    // optimal solution:
+    public int[] maxSumOfThreeSubarrays2(int[] nums, int k) {
         int n = nums.length, maxsum = 0;
         int[] sum = new int[n+1], posLeft = new int[n],
                 posRight = new int[n], ans = new int[3];
@@ -68,7 +104,7 @@ public class Solution {
     public static void main(String[] args) {
         Solution s = new Solution();
         System.out.println(Arrays.toString(s.maxSumOfThreeSubarrays(
-                new int[]{1,2,1,2,6,7,5,1},2
+                new int[]{17,9,3,2,7,10,20,1,13,4,5,16,4,1,17,6,4,19,8,3},4
         )));
     }
 }

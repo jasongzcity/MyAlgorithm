@@ -3,6 +3,29 @@ package ValidPalindrome_125;
 
 public class Solution
 {
+    // Second session
+    // most intuitive way
+    // Notice: another solution is to use regular expression!
+    public static boolean isPalindromeII(String str){
+        char[] s = str.toCharArray();
+        for(int l=0,r=s.length-1;l<r;){
+            if(s[l]>='A'&&s[l]<='Z') s[l] += 'a' - 'A';
+            if(s[r]>='A'&&s[r]<='Z') s[r] += 'a' - 'A';
+            if(!(s[l]>='0'&&s[l]<='9')&&!(s[l]>='a'&&s[l]<='z')){
+                ++l;
+                continue;
+            }
+            if(!(s[r]>='0'&&s[r]<='9')&&!(s[r]>='a'&&s[r]<='z')){
+                --r;
+                continue;
+            }
+            if(s[r]!=s[l]) return false;
+            ++l;
+            --r;
+        }
+        return true;
+    }
+
     public static boolean isPalindrome(String s)
     {
         if(s==null) return false;
