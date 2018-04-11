@@ -14,6 +14,55 @@ package ReadNCharsGivenRead4_157;
  * The read function will only be called once for each test case.
  */
 public class Solution {
+
+    // second session
+    // facebook's love
+    public int readII(char[] buf, int n){
+        int count = 0, rs = 4;
+        char[] tmp = new char[4];
+        while(rs==4&&count<n){
+            rs = read4(tmp);
+            int copy = n - count>=4?rs:Math.min(rs, n-count);
+            System.arraycopy(tmp, 0, buf, count, copy);
+            count+=copy;
+        }
+        return count;
+    }
+
+    // follow up
+    // the read function maybe call multiple times.
+    // one important difference we need to notice:
+    // there maybe some characters read from the file left in the
+    // temporary buff when we called read function last time.
+    // so we make the buffer class-wide
+    private char[] tm = new char[4];
+    private int begin = 0, end = 0;
+
+    // the idea is while we still have characters in the buffer then read from the buffer,
+    // we read from the buffer. Otherwise read from the file
+    // readability is good, but we can shorten the code by not using the "copy"
+    // variable, we just copy the buff char by char.
+    public int readII2(char[] buf, int n){
+        int count = 0, rs = 4;
+        while(rs==4&&count<n){
+            if(begin<end){
+                // read from tm buffer
+                int copy = Math.min(end - begin, n - count);
+                System.arraycopy(tm, begin, buf, count, copy);
+                count += copy;
+                begin += copy;
+            }else{
+                rs = read4(tm);
+                int copy = Math.min(n-count, rs);
+                System.arraycopy(tm, 0, buf, count, copy);
+                end = rs;
+                begin = copy;
+                count += copy;
+            }
+        }
+        return count;
+    }
+
     // dummy method to avoid compile error
     int read4(char[] buf){ return -1; }
 

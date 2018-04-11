@@ -23,6 +23,12 @@ import BinaryTree.TreeNode;
  * Another example is LCA of nodes 2 and 4 is 2
  */
 public class Solution {
+
+    // second session
+    public TreeNode lowestCommonAncestorII(TreeNode root,TreeNode p, TreeNode q){
+        return null;
+    }
+
     // iterative solution
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         while((p.val-root.val)*(q.val-root.val)>0)

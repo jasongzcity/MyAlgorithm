@@ -63,6 +63,52 @@ import java.util.*;
  * ]
  */
 public class Solution {
+
+    // Second session
+    // thought:
+    // one key point is that we should use level traversal,
+    // or in the last example, the 2 will be in the column list before 8
+    // should we first do a dfs to find out how many columns are there in the tree?
+    // nah! You can actually do that during the traversal procedure
+    // by maintaining the smallest and highest
+    // actually you can also use map to map the column number and the array.
+    public List<List<Integer>> verticalOrderII(TreeNode root){
+        List<List<Integer>> rs = new LinkedList<>();
+        if(root==null) return rs;
+        // use these two queue to do level traversal
+        Queue<TreeNode> nodes = new LinkedList<>();
+        Queue<Integer> cols = new LinkedList<>();
+        int collow = 1, colhigh = 0;    // this is actually the tricky part, how to define initial value?
+        nodes.add(root);
+        cols.add(0);
+        while(nodes.size()!=0){
+            TreeNode cur = nodes.poll();
+            Integer col = cols.poll();
+            List<Integer> l;
+            if(col<collow){
+                l = new ArrayList<>();
+                rs.add(0, l);
+                collow = col;
+            }else if(col>colhigh){
+                l = new ArrayList<>();
+                rs.add(l);
+                colhigh = col;
+            }else{
+                l = rs.get(col-collow);
+            }
+            l.add(cur.val);
+            if(cur.left!=null){
+                nodes.add(cur.left);
+                cols.add(col-1);
+            }
+            if(cur.right!=null){
+                nodes.add(cur.right);
+                cols.add(col+1);
+            }
+        }
+        return rs;
+    }
+
     // use level traverse
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> rs = new LinkedList<>();

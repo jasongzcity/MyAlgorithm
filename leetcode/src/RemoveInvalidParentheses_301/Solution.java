@@ -14,6 +14,45 @@ import java.util.*;
  * ")(" -> [""]
  */
 public class Solution {
+
+    // second session
+    // thought:
+    // "valid": the number of left parentheses never drop belows 0
+    // and should be 0 at the end of the string.
+    // we delete the minimum parentheses according the "balance"
+    // rule.
+    // most voted on leetcode
+    public List<String> removeInvalidParenthesesII(String s){
+        List<String> rs = new ArrayList<>();
+        remove2(s, 0,0, new char[]{'(', ')'}, rs);
+        return rs;
+    }
+
+    // if arr = {'(', ')'} we deal with invalid ')'
+    //        = {')', '('} we deal with '('
+    private void remove2(String s, int last_pos, int last_del, char[] arr, List<String> rs){
+        for(int i=last_pos, stack=0;i<s.length();i++){
+            // use variable "stack" to check invalid parentheses.
+            if(s.charAt(i)==arr[0]) ++stack;
+            else if(s.charAt(i)==arr[1]) --stack;
+            if(stack>=0) continue;
+            // now we need to delete some parentheses
+            // last_del is actually last deletion position plus 1.
+            for(int del=last_del;del<=i;del++){
+                // avoid producing duplicates
+                if(s.charAt(del)==arr[1]&&(del==last_del||s.charAt(del)!=s.charAt(del-1)))
+                    remove2(s.substring(0, del)+s.substring(del+1), i, del, arr, rs);
+            }
+            return;
+        }
+
+        // now the string is valid!
+        String rev = new StringBuilder(s).reverse().toString();
+        // check it in reverse direction
+        if(arr[0]=='(') remove2(rev, 0, 0, new char[]{')', '('}, rs);
+        else rs.add(rev);
+    }
+
     public List<String> removeInvalidParentheses(String s) {
         List<String> rs = new ArrayList<>(s.length());
         StringBuilder sb = new StringBuilder(s.length());
@@ -63,7 +102,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.removeInvalidParentheses("(a)())()"));
+        System.out.println(s.removeInvalidParenthesesII("(a)())()"));
         System.out.println(s.removeInvalidParentheses(")("));
         System.out.println(s.removeInvalidParentheses("())"));
         System.out.println(s.removeInvalidParentheses("(()"));

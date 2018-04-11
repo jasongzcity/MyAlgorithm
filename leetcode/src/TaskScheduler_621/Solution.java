@@ -26,6 +26,20 @@ import java.util.*;
  * The integer n is in the range [0, 100].
  */
 public class Solution {
+
+    // second session
+    // leetcode most voted solution redo
+    public int leastIntervalII(char[] tasks, int n) {
+        int[] map = new int[26];
+        for(char c:tasks) map[c-'A']++;
+        Arrays.sort(map);
+        int most = map[25]-1, emptySlots = most*n;
+        for(int i=24; i>-1&&map[i]>0; i--){
+            emptySlots -= Math.min(most, map[i]);
+        }
+        return emptySlots>0 ? tasks.length+emptySlots:tasks.length;
+    }
+
     // Intuitive way
     // not accepted but close.
     public int leastInterval2(char[] tasks, int n) {

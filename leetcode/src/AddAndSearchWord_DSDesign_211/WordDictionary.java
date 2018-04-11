@@ -1,7 +1,5 @@
 package AddAndSearchWord_DSDesign_211;
 
-import java.util.LinkedList;
-
 /**
  * Design a data structure that supports the following two operations:
  *
@@ -12,7 +10,6 @@ import java.util.LinkedList;
  * A . means it can represent any one letter.
  *
  * For example:
- *
  * addWord("bad")
  * addWord("dad")
  * addWord("mad")

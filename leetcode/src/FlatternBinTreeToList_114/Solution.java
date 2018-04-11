@@ -9,8 +9,72 @@ import java.util.Stack;
  * Hints:
  * If you notice carefully in the flattened tree,
  * each node's right child points to the next node of a pre-order traversal.
+ *
+ * Example:
+ *       1
+ *      / \
+ *     2   3
+ *    / \   \
+ *   4   5   6
+ *
+ * Into :
+ *
+ * 1
+ *  \
+ *   2
+ *    \
+ *     4
+ *      \
+ *       5
+ *        \
+ *         3
+ *          \
+ *           6
  */
 public class Solution {
+
+    // third session
+    // do it in recursive way
+    // notice this is not easy to do for inorder -> list
+    private TreeNode prev2 = null;
+
+    public void flattenIII(TreeNode root){
+        dfsIII(root);
+    }
+
+    private void dfsIII(TreeNode root){
+        if(root==null) return;
+        dfsIII(root.right);
+        dfsIII(root.left);
+        root.left = null;
+        root.right = prev2;
+        prev2 = root;
+    }
+
+    // second session
+    // try to do it in-place
+    public void flattenII(TreeNode root){
+        if(root==null) return;
+        pre(root);
+    }
+
+    // This is very alike the onsite question I have met!
+    // check BST tree Iterator(#173) for more information
+    // however it's not looking that complicated..
+    private TreeNode pre(TreeNode r){
+        TreeNode right = r.right, tm;
+        if(r.left!=null){
+            tm = pre(r.left);
+            r.right = r.left;
+            r.left = null;
+        }else{
+            tm = r;
+        }
+        tm.right = right;
+        if(right!=null) return pre(right);
+        return tm;
+    }
+
     // Notice: this solution is traditional but pretty slow....
     public static void flatten2(TreeNode root) {
         Stack<TreeNode> s = new Stack<>();
@@ -35,6 +99,7 @@ public class Solution {
     }
 
     // Non-recursive, no stack solution...
+    // This is the smartest solution..
     public static void flatten(TreeNode root){
         while(root!=null){
             if(root.left!=null&&root.right!=null){ // put right into left subtree

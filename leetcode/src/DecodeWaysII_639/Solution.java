@@ -32,10 +32,9 @@ package DecodeWaysII_639;
 public class Solution {
     // follow up of #91 - Decode Ways
     // Still DP with modifications
-    // let dp[i] represents the number of
+    // let dp
+    // [i] represents the number of
     // decode ways of dp[0:i-1]
-    // notice the boundary workaround at decode ways(#91)
-    // doesn't work here. we can't use boundary dp[0] = 1 here.
     public int numDecodings(String s) {
         // notice!
         // '*' = '1' - '9' not '0' -'9'

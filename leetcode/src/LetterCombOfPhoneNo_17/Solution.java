@@ -1,6 +1,7 @@
 package LetterCombOfPhoneNo_17;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +11,27 @@ import java.util.List;
  */
 public class Solution
 {
+
+    // Second session
+    // suppose, a thing to discuss: how about "1" and "0"
+    // look like BFS in some way.
+    private static String[] strs = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    public static List<String> letterCombinationsII(String digits){
+        if(digits.length()==0) return Collections.emptyList();
+        List<String> l = new LinkedList<>();
+        l.add("");
+        for(char c:digits.toCharArray()){
+            String map = strs[c-'0'];
+            int size = l.size();
+            while(size-->0){
+                String cur = l.remove(0);
+                for(char cc:map.toCharArray())
+                    l.add(cur+cc);
+            }
+        }
+        return l;
+    }
+
     /* Should consider what will "1" and "0" represent? */
     public static List<String> letterCombinations(String digits)
     {

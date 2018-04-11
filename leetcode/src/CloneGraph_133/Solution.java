@@ -34,6 +34,60 @@ import java.util.*;
  * };
  */
 public class Solution {
+
+    // Second session
+    // thought:
+    // using a map to map the nodes with their labels..
+    // dfs and bfs..
+    // notice: be careful with the self cycle ring!
+    // create a new node and put it into map, or
+    // it may keep "digging" and making new node(it thought there was a new neighbor,
+    // but the neighbor was itself actually)
+    // and finally stack overflow.
+    public static UndirectedGraphNode cloneGraphII(UndirectedGraphNode node){
+        return dfs(node, new HashMap<>());
+    }
+
+    private static UndirectedGraphNode dfs(UndirectedGraphNode src, Map<Integer, UndirectedGraphNode> map){
+        if(src==null) return null;
+        UndirectedGraphNode tar = new UndirectedGraphNode(src.label);
+        map.put(src.label, tar);
+        for(UndirectedGraphNode nei:src.neighbors){
+            UndirectedGraphNode newNei = map.get(nei.label);
+            if(newNei==null){
+                // we need to create the new node
+                newNei = dfs(nei, map);
+            }
+            tar.neighbors.add(newNei);
+        }
+        return tar;
+    }
+
+    // Can we do BFS?
+    public static UndirectedGraphNode cloneGraphII2(UndirectedGraphNode node){
+        if(node==null) return null;
+        Map<Integer, UndirectedGraphNode> map = new HashMap<>();
+        UndirectedGraphNode root = new UndirectedGraphNode(node.label);
+        map.put(root.label, root);
+        Queue<UndirectedGraphNode> q = new LinkedList<>();
+        q.add(node);
+        q.add(root);
+        while(q.size()!=0){
+            UndirectedGraphNode src = q.poll(), cur = q.poll();
+            for(UndirectedGraphNode n:src.neighbors){
+                UndirectedGraphNode tm = map.get(n.label);
+                if(tm==null){
+                    tm = new UndirectedGraphNode(n.label);
+                    map.put(n.label, tm);
+                    q.add(n);
+                    q.add(tm);
+                }
+                cur.neighbors.add(tm);
+            }
+        }
+        return root;
+    }
+
     // DFS with memo
     public static UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if(node==null) return null;

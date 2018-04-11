@@ -14,6 +14,31 @@ package CountAndSay_38;
  */
 public class Solution
 {
+
+    // second session
+    public static String countAndSayII(int n){
+        if(n<1) return "";
+        if(n==1) return "1";
+        StringBuilder prev = new StringBuilder("1"), cur = new StringBuilder();
+        while(--n>0){
+            int p = 0, count = 0;
+            while(p<prev.length()){
+                if(p==0||prev.charAt(p)==prev.charAt(p-1)) count++;
+                else{
+                    cur.append((char)(count+'0')).append(prev.charAt(p-1));
+                    count = 1;
+                }
+                p++;
+            }
+            cur.append((char)(count+'0')).append(prev.charAt(prev.length()-1));
+            StringBuilder tm = prev.delete(0, prev.length());
+            prev = cur;
+            cur = tm;
+        }
+        return prev.toString();
+    }
+
+
     public static String countAndSay(int n){
         //String prev,current = "1";
         StringBuilder current = new StringBuilder("1"),prev = new StringBuilder(" ");
@@ -39,8 +64,8 @@ public class Solution
     }
 
     public static void main(String[] args) {
-        System.out.println(countAndSay(1));
-        System.out.println(countAndSay(2));
-        System.out.println(countAndSay(5));
+//        System.out.println(countAndSay(1));
+//        System.out.println(countAndSay(2));
+        System.out.println(countAndSayII(5));
     }
 }

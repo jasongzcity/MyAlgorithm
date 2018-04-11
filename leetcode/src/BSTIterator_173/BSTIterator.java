@@ -16,9 +16,41 @@ import java.util.LinkedList;
  */
 public class BSTIterator {
 
-    private LinkedList<TreeNode> s = new LinkedList<>();
+    // session three
+    // transform Binary tree to doubly list, in-place, inorder traversal order
+
+    public BSTIterator(){} // dummy
+
+    public TreeNode transformIII(TreeNode root){
+        TreeNode[] tm = new TreeNode[2];
+        inorderIII(root,tm);
+        return tm[0];
+    }
+
+    // divide and conquer
+    // Suppose we have put the left subtree and right subtree in
+    // correct order, we should get the rightmost node from the left subtree, and
+    // the leftmost node from the right subtree, and connect them with the current node.
+    // also, the return result can be reuse!
+    private void inorderIII(TreeNode root, TreeNode[] rs){
+        if(root==null) return;
+        TreeNode[] left = new TreeNode[2], right = new TreeNode[2];
+        inorderIII(root.left, left);
+        inorderIII(root.right, right);
+        root.left = left[1];
+        if(left[1]!=null) left[1].right = root;
+        root.right = right[0];
+        if(right[0]!=null) right[0].left = root;
+        rs[0] = left[0] == null ? root : left[0];
+        rs[1] = right[1] == null ? root : right[1];
+    }
+
+    // 1. transforming it to a list.
+    // 2. using a stack
 
     // Second session
+    private LinkedList<TreeNode> s = new LinkedList<>();
+
     public BSTIterator(TreeNode root, boolean dummy) {
         TreeNode t = root;
         while(t!=null){
@@ -116,20 +148,23 @@ public class BSTIterator {
 
     public static void main(String[] args) {
         Integer[] a = {1,2,3,4,5,6,7,null,100,9,8,null,101,null,null,null,null,102};
+        BSTIterator s = new BSTIterator();
         TreeNode t = new TreeNode(a);
-        BSTIterator s = new BSTIterator(t, 3);
-        TreeNode tm = s.head;
-        while(tm.right!=null){
-            System.out.print(tm.val+" ");
-            tm = tm.right;
-        }
-        System.out.println(tm.val);
-        while(tm.left!=null){
-            System.out.print(tm.val+" ");
-            tm = tm.left;
-        }
-        System.out.println(tm.val);
-        t = s.recover(s.head);
+        t = s.transformIII(t);
+//        TreeNode t = new TreeNode(a);
+//        BSTIterator s = new BSTIterator(t, 3);
+//        TreeNode tm = s.head;
+//        while(tm.right!=null){
+//            System.out.print(tm.val+" ");
+//            tm = tm.right;
+//        }
+//        System.out.println(tm.val);
+//        while(tm.left!=null){
+//            System.out.print(tm.val+" ");
+//            tm = tm.left;
+//        }
+//        System.out.println(tm.val);
+//        t = s.recover(s.head);
     }
 
     // easiest one, do an inorder traverse and change sequences
