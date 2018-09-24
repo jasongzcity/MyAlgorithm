@@ -26,3 +26,17 @@ leetcode/.metadata
 leetcode/out/
 leetcode/RemoteSystemTempFiles
 leetcode/leetcode*
+
+# editors
+*.swp
+.idea/*
+.vscode/*
+leetcode-cpp/.vscode/*
+leetcode-cpp/leetcode.*/*
+
+
+.DS*
+*/.*
+
+# for cpp
+*.out
