@@ -36,6 +36,7 @@ leetcode-cpp/leetcode.*/*
 
 
 .DS*
+*.dS*
 */.*
 
 # for cpp
